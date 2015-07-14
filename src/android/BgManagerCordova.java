@@ -50,8 +50,17 @@ public class BgManagerCordova extends CordovaPlugin {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Bg5Manager.MSG_BT_CONNECTED);
         intentFilter.addAction(Bg5Manager.MSG_BT_DISCONNECT);
-        
-       
+        intentFilter.addAction(Bg5Manager.MSG_DISCOVER_DEVICE);
+        intentFilter.addAction(Bg5Manager.MSG_DISCOVER_FINISHED);
+        intentFilter.addAction(Bg5InsSet.MSG_GET_BOTTLEID);
+        intentFilter.addAction(Bg5InsSet.MSG_GET_CODE);
+        intentFilter.addAction(Bg5InsSet.MSG_GET_BATTERY);
+        intentFilter.addAction(Bg5InsSet.MSG_ERROR);
+        intentFilter.addAction(Bg5InsSet.MSG_STRIP_IN);
+        intentFilter.addAction(Bg5InsSet.MSG_GET_BLOOD);
+        intentFilter.addAction(Bg5InsSet.MSG_GET_VALUE);
+        intentFilter.addAction(Bg5InsSet.MSG_STRIP_OUT);
+        intentFilter.addAction(Bg5InsSet.MSG_GET_HISTORY);
         intentFilter.addAction(MSG_TEST_DATA);
         mContext.registerReceiver(mReceiver, intentFilter);
     }
