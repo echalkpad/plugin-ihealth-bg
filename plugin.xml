@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-        id="com.ihealth.plugin.bpmanagercordova"
+        id="com.ihealth.plugin.bgmanagercordova"
         version="0.0.1">
 
   <name>plugin_Bp</name>
@@ -9,17 +9,17 @@
     <engine name="cordova" version=">=3.4.0"/>
   </engines>
 
-  <asset src="www/BpManagerCordova.js" target="js/BpManagerCordova.js"/>
+  <asset src="www/BgManagerCordova.js" target="js/BgManagerCordova.js"/>
 
-  <js-module src="www/BpManagerCordova.js" name="BpManagerCordova">
-    <clobbers target="BpManagerCordova" />
+  <js-module src="www/BgManagerCordova.js" name="BgManagerCordova">
+    <clobbers target="BgManagerCordova" />
   </js-module>
 
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="BpManagerCordova">
-        <param name="android-package" value="com.ihealth.plugin.BpManagerCordova"/>
+      <feature name="BgManagerCordova">
+        <param name="android-package" value="com.ihealth.plugin.Bg5ManagerCordova"/>
       </feature>
     </config-file>
     
