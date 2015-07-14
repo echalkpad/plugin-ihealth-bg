@@ -104,8 +104,7 @@ public class Bg5Manager {
                 final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 Log.i(TAG, "发现蓝牙设备 - 名称:" + device.getName() + " --- " + "地址: " + device.getAddress());
                 if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
-					if (device.getName().contains(BT_BP5_NAME) ||
-							device.getName().contains(BT_BP7_NAME)) {
+					if (device.getName().contains(BT_BG5_NAME)) {
 						Log.d(TAG, "此设备已经绑定了");
 						mapDevices.put(device.getAddress().replace(":", ""), device);
 						mIntent = new Intent(MSG_DISCOVER_DEVICE);
