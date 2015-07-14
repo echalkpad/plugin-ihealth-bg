@@ -79,7 +79,7 @@ public class Bg5Control implements DeviceControl{
 
 	@Override
 	public void init() {
-		setTime();
+		mBg5InsSet.identify(false);
 	}
 	
 	@Override

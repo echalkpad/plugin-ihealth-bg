@@ -174,7 +174,7 @@ public class Bg5Manager {
 	    		String name = device.getName();
 	    		Log.i(TAG, "createControl mac:" + mac +" - name:" + name);
 	    		if(name.contains(BT_BG5_NAME)){
-	    			mBg5Control = new Bg5Control(btCommThread, mContext, mac, "BP5"); 
+	    			mBg5Control = new Bg5Control(btCommThread, mContext, mac, "BG5"); 
 	    			mBg5Control.init();
 	    		}
 	    		

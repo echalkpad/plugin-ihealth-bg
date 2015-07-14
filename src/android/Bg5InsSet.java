@@ -68,7 +68,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		btcm.packageData(null, returnCommand);
 	}
 
-	private void identify(boolean b) {
+	public void identify(boolean b) {
 		btcm.packageData(null, identify(b, deviceType));
 	}
 

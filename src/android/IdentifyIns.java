@@ -31,6 +31,13 @@ public class IdentifyIns {
             // 正式认证过程
     };
 
+    private static byte[] KaA2 = { 
+            (byte) 0xFF, (byte) 0xD5, (byte) 0x7A, (byte) 0x65, 
+            (byte) 0x75, (byte) 0x48, (byte) 0x7E, (byte) 0x71, 
+            (byte) 0x63, (byte) 0xCD, (byte) 0xED, (byte) 0x4B,
+            (byte) 0x5D, (byte) 0x93, (byte) 0x11, (byte) 0x9C 
+    };
+
     private static byte[] KaWeixinA1 = new byte[] {
             (byte) 0x92, (byte) 0xE0, (byte) 0x83, (byte) 0x5B,
             (byte) 0xF9, (byte) 0x7F, (byte) 0xC9, (byte) 0xA3,
@@ -122,6 +129,8 @@ public class IdentifyIns {
             return keyAc;
         } else if (type.equals("HS5")) {
             return KaA9;
+        } else if (type.equals("BG5")) {
+            return KaA2;
         }
         return K;
     }
