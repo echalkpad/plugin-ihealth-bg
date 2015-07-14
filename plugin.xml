@@ -28,7 +28,8 @@
       <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     </config-file>    
     <source-file src="src/android/BaseComm.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/BaseCommProtocol.java" target-dir="src/com/ihealth/plugin/"/>  
+    <source-file src="src/android/BaseCommProtocol.java" target-dir="src/com/ihealth/plugin/"/> 
+    <source-file src="src/android/BaseCommThread.java" target-dir="src/com/ihealth/plugin/"/> 
     <source-file src="src/android/Bg5Control.java" target-dir="src/com/ihealth/plugin/"/> 
     <source-file src="src/android/Bg5InsSet.java" target-dir="src/com/ihealth/plugin/"/>  
     <source-file src="src/android/Bg5Manager.java" target-dir="src/com/ihealth/plugin/"/> 
