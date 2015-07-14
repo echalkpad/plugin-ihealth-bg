@@ -379,7 +379,7 @@ public class BgManagerCordova extends CordovaPlugin {
                     e.printStackTrace();
                 }         
             	keepCallback(mCallbackContext, o.toString());
-            } else if(Bg5Manager.MSG_BT_CONNECTED){
+            } else if(Bg5Manager.MSG_BT_CONNECTED.equals(action)){
                 String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
                 JSONObject o = null;
                 try {
