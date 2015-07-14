@@ -19,7 +19,7 @@
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="BgManagerCordova">
-        <param name="android-package" value="com.ihealth.plugin.Bg5ManagerCordova"/>
+        <param name="android-package" value="com.ihealth.plugin.BgManagerCordova"/>
       </feature>
     </config-file>
     
@@ -32,7 +32,7 @@
     <source-file src="src/android/Bg5Control.java" target-dir="src/com/ihealth/plugin/"/> 
     <source-file src="src/android/Bg5InsSet.java" target-dir="src/com/ihealth/plugin/"/>  
     <source-file src="src/android/Bg5Manager.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/Bg5ManagerCordova.java" target-dir="src/com/ihealth/plugin/"/>  
+    <source-file src="src/android/BgManagerCordova.java" target-dir="src/com/ihealth/plugin/"/>  
     <source-file src="src/android/BtCommProtocol.java" target-dir="src/com/ihealth/plugin/"/> 
     <source-file src="src/android/BtUnpackageData.java" target-dir="src/com/ihealth/plugin/"/>  
     <source-file src="src/android/ByteBufferUtil.java" target-dir="src/com/ihealth/plugin/"/> 
