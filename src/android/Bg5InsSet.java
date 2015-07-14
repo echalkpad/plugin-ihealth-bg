@@ -18,13 +18,30 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 
 	
 	private static final String TAG = "Bg5InsSet";
+	
+	public static final String MSG_GET_BOTTLEID = "com.ihealth.bt.bg5.getbottleid";
+	public static final String MSG_GET_BOTTLEID_EXTRA = "com.ihealth.bt.bg5.getbottleid.extra";
+	public static final String MSG_GET_CODE = "com.ihealth.bt.bg5.code";
+	public static final String MSG_GET_CODE_EXTRA = "com.ihealth.bt.bg5.code.extra";
+	public static final String MSG_GET_LEFTNUM = "com.ihealth.bt.bg5.leftnum";
+	public static final String MSG_GET_EXPIRECTIME = "com.ihealth.bt.bg5.ecpirectime";
+	public static final String MSG_GET_BATTERY = "com.ihealth.bt.bg5.getbattery";
+	public static final String MSG_GET_BATTERY_EXTRA = "com.ihealth.bt.bg5.getbattery.extra";
+	public static final String MSG_ERROR = "com.ihealth.bt.bg5.error";
+	public static final String MSG_ERROR_EXTRA = "com.ihealth.bt.bg5.error.extra";
+	public static final String MSG_STRIP_IN = "com.ihealth.bt.bg5.strip.in";
+	public static final String MSG_GET_BLOOD = "com.ihealth.bt.bg5.getblood";
+	public static final String MSG_GET_VALUE = "com.ihealth.bt.bg5.getvalue";
+	public static final String MSG_GET_VALUE_EXTRA = "com.ihealth.bt.bg5.value.extra";
+	public static final String MSG_STRIP_OUT = "com.ihealth.bt.bg5.strip.out";
+	public static final String MSG_GET_HISTORY = "com.ihealth.bt.bg5.get.history";
+	public static final String MSG_GET_HISTORY_EXTRA = "com.ihealth.bg.bg5.get.history.extra";
+	
 	private static final byte deviceType = (byte) 0xa2;
 	private Context mContext;
 	private BtCommProtocol btcm;
 	private String mAddress;
 	private String mType;
-
-	public static final String MSG_BP_ERROR = "com.ihealth.msg.bp.error";
 
 	private String[] bloodStr = new String[]{
 			"01",
@@ -111,6 +128,16 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		btcm.packageData(null, returnCommand);
 	}
 	
+	public void setUnit(int type){
+		byte[] returnCommand = new byte[5];
+		byte commandID = (byte) 0x23;
+		returnCommand[0] = deviceType;
+		returnCommand[1] = commandID;
+		returnCommand[2] = (byte) type;
+		returnCommand[3] = 0;
+		returnCommand[4] = 0;
+		btcm.packageData(null, returnCommand);
+	}
 	public void setBottleId(int userId){
 		byte[] userIds = ByteBufferUtil.intTo4Byte(userId);
 		byte[] returnCommand = new byte[6];
@@ -290,16 +317,16 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 				}else{
 					identify(false);
 				}
-				Intent mIntentf0 = new Intent(MSG_BP_IDPS);
-				mIntentf0.putExtra(BpManager.MSG_MAC, mAddress);
-				mIntentf0.putExtra(BpManager.MSG_TYPE, mType);
-				mIntentf0.putExtra(BpInsSet.MSG_BP_IDPS_PROTOCOL, str1);
-				mIntentf0.putExtra(BpInsSet.MSG_BP_IDPS_ACCESSORYNAME, str2);
-				mIntentf0.putExtra(BpInsSet.MSG_BP_IDPS_FIRMWARE, str3);
-				mIntentf0.putExtra(BpInsSet.MSG_BP_IDPS_HARDWARE, str4);
-				mIntentf0.putExtra(BpInsSet.MSG_BP_IDPS_MODENUMBER, str5);
-				mIntentf0.putExtra(BpInsSet.MSG_BP_IDPS_MANUFACTURE, str6);
-				mIntentf0.putExtra(BpInsSet.MSG_BP_IDPS_SERIALNUMBER, mAddress);
+				Intent mIntentf0 = new Intent(Bg5Manager.MSG_BG5_IDPS);
+				mIntentf0.putExtra(Bg5Manager.MSG_MAC, mAddress);
+				mIntentf0.putExtra(Bg5Manager.MSG_TYPE, mType);
+				mIntentf0.putExtra(Bg5Manager.MSG_BG5_IDPS_PROTOCOL, str1);
+				mIntentf0.putExtra(Bg5Manager.MSG_BG5_IDPS_ACCESSORYNAME, str2);
+				mIntentf0.putExtra(Bg5Manager.MSG_BG5_IDPS_FIRMWARE, str3);
+				mIntentf0.putExtra(Bg5Manager.MSG_BG5_IDPS_HARDWARE, str4);
+				mIntentf0.putExtra(Bg5Manager.MSG_BG5_IDPS_MODENUMBER, str5);
+				mIntentf0.putExtra(Bg5Manager.MSG_BG5_IDPS_MANUFACTURE, str6);
+				mIntentf0.putExtra(Bg5Manager.MSG_BG5_IDPS_SERIALNUMBER, mAddress);
 				mContext.sendBroadcast(mIntentf0);
 								
 			} catch (UnsupportedEncodingException e) {
@@ -311,11 +338,6 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			break;
 		case 0xff:
 			identify(false);
-			if(mType.equals("BP3")){
-				Intent mIntentff = new Intent(MSG_BP_STOP);
-				mIntentff.putExtra(BpManager.MSG_MAC, mAddress);
-				mContext.sendBroadcast(mIntentff);
-			}
 			break;
 		default:
 			Log.i(TAG, "没有这条指令");

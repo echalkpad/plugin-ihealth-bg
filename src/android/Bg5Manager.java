@@ -22,6 +22,7 @@ public class Bg5Manager {
 	private final static String TAG = "BpManager";
 	private final static String BT_BP5_NAME = "BP5";
 	private final static String BT_BP7_NAME = "BP7";
+	private final static String BT_BG5_NAME = "BG5";
 	private static final UUID UUID_SPP = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //SPP
 	public static final String MSG_BT_CONNECTED = "com.ihealth.msg.bt.connected";
 	public static final String MSG_BT_DISCONNECT = "com.ihealth.msg.bt.disconnect";
@@ -29,13 +30,21 @@ public class Bg5Manager {
 	public static final String MSG_TYPE = "com.ihealth.msg.type";
 	public static final String MSG_NAME = "com.ihealth.msg.name";
 	
+	public static final String MSG_BG5_IDPS = "com.ihealth.msg.idps";
+	public static final String MSG_BG5_IDPS_PROTOCOL = "com.ihealth.msg.bg5.idps.protocol";
+	public static final String MSG_BG5_IDPS_ACCESSORYNAME = "com.ihealth.msg.bg5.idps.accessoryname";
+	public static final String MSG_BG5_IDPS_FIRMWARE = "com.ihealth.msg.bg5.idps.firmware";
+	public static final String MSG_BG5_IDPS_HARDWARE = "com.ihealth.msg.bg5.idps.hardware";
+	public static final String MSG_BG5_IDPS_MODENUMBER = "com.ihealth.msg.bg5.idps.modenumber";
+	public static final String MSG_BG5_IDPS_MANUFACTURE = "com.ihealth.msg.bg5.idps.manufacture";
+	public static final String MSG_BG5_IDPS_SERIALNUMBER = "com.ihealth.msg.bg5.idps.serialnumber";
+	
 	public static final String MSG_DISCOVER_DEVICE = "com.ihealth.msg.discover.device";
 	public static final String MSG_CONNECTING_DEVICE = "com.ihealth.msg.connecting.device";
 	public static final String MSG_CREATE_BLUETOOTHSOCKET_SUCCESS = "com.ihealth.msg.bluetoothsocket.success";
 	public static final String MSG_CREATE_BLUETOOTHSOCKET_FAIL = "com.ihealth.msg.bluetoothsocket.fail";
 	public static final String MSG_CREATE_IOSTREAM_SUCCESS = "com.ihealth.msg.create.iostream.success";
 	public static final String MSG_CREATE_IOSTREAM_FAIL = "com.ihealth.msg.iostream.fail";
-	public static final String MSG_AUTHENTICATE = "com.ihealth.msg.authenticate";
 	public static final String MSG_CONNECTED_DEVICE = "com.ihealth.msg.connected.device";
 	
 	public static final String MSG_DISCOVERING_DEVICE = "com.ihealth.msg.discovering";
@@ -78,7 +87,7 @@ public class Bg5Manager {
 		mContext.unregisterReceiver(mReceiver);
 	}
 
-	private Bg5Control mBpControl;
+	private Bg5Control mBg5Control;
 	private Map<String, Bg5Control> mapBg5Control = new ConcurrentHashMap<String, Bg5Control>();
 	public Bg5Control getBg5Control(String mac){
 		return mapBg5Control.get(mac);
@@ -107,7 +116,7 @@ public class Bg5Manager {
                 }
             } else if(MSG_BT_CONNECTED.equals(action)) {
             	String mac = intent.getStringExtra(MSG_MAC);
-            	mapBg5Control.put(mac, mBpControl);
+            	mapBg5Control.put(mac, mBg5Control);
             } else if(android.bluetooth.BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
             	mContext.sendBroadcast(new Intent(MSG_DISCOVER_FINISHED));
             }
@@ -165,22 +174,24 @@ public class Bg5Manager {
 	    		String mac = device.getAddress().replace(":", "");
 	    		String name = device.getName();
 	    		Log.i(TAG, "createControl mac:" + mac +" - name:" + name);
-	    		mContext.sendBroadcast(new Intent(MSG_AUTHENTICATE).putExtra(MSG_MAC,mac));
-	    		if(name.contains(BT_BP5_NAME)){
-	    			mBpControl = new Bg5Control(btCommThread, mContext, mac, "BP5");
-	    			mBpControl.init();
-	    		}else if(name.contains(BT_BP7_NAME)){
-	    			mBpControl = new Bg5Control(btCommThread, mContext, mac, "BP7");
-	    			mBpControl.init();
-	    		}else{
-	    			Log.e(TAG, "没有此设备");
+	    		if(name.contains(BT_BG5_NAME)){
+	    			
 	    		}
+	    		
+//	    		if(name.contains(BT_BP5_NAME)){
+//	    			mBpControl = new Bg5Control(btCommThread, mContext, mac, "BP5");
+//	    			mBpControl.init();
+//	    		}else if(name.contains(BT_BP7_NAME)){
+//	    			mBpControl = new Bg5Control(btCommThread, mContext, mac, "BP7");
+//	    			mBpControl.init();
+//	    		}else{
+//	    			Log.e(TAG, "没有此设备");
+//	    		}
 	    	}
 	    }
 	
 	
 	public void startDiscovery(){
-		Log.i(TAG, "开始普通蓝牙扫描");
 		if(!mBtAdapter.isDiscovering()){
 			mBtAdapter.startDiscovery();
 		}
@@ -230,7 +241,7 @@ public class Bg5Manager {
 		}
 	}
 
-	public void setBottleMessage(String mac, String qr, int mun, String data){
+	public void setBottleMessage(String mac, String qr, int mun, long data){
 		Bg5Control bg5Control = mapBg5Control.get(mac);
 		if(null != bg5Control){
 			bg5Control.setBottleMessage(qr, mun, data);
@@ -258,7 +269,7 @@ public class Bg5Manager {
 		}
 	}
 	
-	public void disConnectDevice(){
+	public void disConnectDevice(String mac){
 		Bg5Control bg5Control = mapBg5Control.get(mac);
 		if(null != bg5Control){
 			bg5Control.deleteOfflineData();

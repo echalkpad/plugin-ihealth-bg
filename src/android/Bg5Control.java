@@ -16,8 +16,12 @@ public class Bg5Control implements DeviceControl{
 		mBg5InsSet.setTime();
 	}
 	
-	public void setUnit(int type){
-		
+	public boolean setUnit(int type){
+		if((type > 0) && (type < 4)){
+			mBg5InsSet.setUnit(type);
+			return true;
+		}else
+			return false;
 	}
 
 	public void getBattery(){
@@ -56,7 +60,7 @@ public class Bg5Control implements DeviceControl{
 		
 	}
 
-	public void setBottleMessage(String qr, int mun, String data) {
+	public void setBottleMessage(String qr, int mun, long timeTs) {
 		
 	}
 
