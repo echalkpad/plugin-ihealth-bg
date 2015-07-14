@@ -379,6 +379,17 @@ public class BgManagerCordova extends CordovaPlugin {
                     e.printStackTrace();
                 }         
             	keepCallback(mCallbackContext, o.toString());
+            } else if(Bg5Manager.MSG_BT_CONNECTED){
+                String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
+                JSONObject o = null;
+                try {
+                    o = new JSONObject();
+                    o.put("msg", "connected");
+                    o.put("address", "mac");
+                } catch (Exception e) {                   
+                    e.printStackTrace();
+                }         
+                keepCallback(mCallbackContext, o.toString());
             } else if(Bg5Manager.MSG_BG5_IDPS.equals(action)){
             	String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
             	String str1 = intent.getStringExtra(Bg5Manager.MSG_BG5_IDPS_PROTOCOL);

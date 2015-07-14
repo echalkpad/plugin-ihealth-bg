@@ -258,7 +258,9 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			break;
 		case 0xfd:
 			Log.i(TAG, "认证成功");
-			getBatteryLevel();
+			Intent mIntentfd = new Intent(Bg5Manager.MSG_BT_CONNECTED);
+			mIntentfd.putExtra(Bg5Manager.MSG_MAC, mAddress);
+			mContext.sendBroadcast(mIntentfd);	
 			break;
 		case 0xfe:
 			break;
