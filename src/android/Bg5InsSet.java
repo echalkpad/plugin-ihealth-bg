@@ -248,9 +248,9 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 	@Override
 	public void haveNewData(int what, int stateId, byte[] returnData) {
 		Log.i(TAG, "what:" + what);
-		if (0 == stateId) {
-			ask();
-		}
+		// if (0 == stateId) {
+		// 	ask();
+		// }
 		switch (what) {
 		case 0xfb:
 			byte[] req = deciphering(returnData, mType, deviceType);

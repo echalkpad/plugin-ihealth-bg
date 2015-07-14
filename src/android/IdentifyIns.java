@@ -38,7 +38,7 @@ public class IdentifyIns {
             (byte) 0x5D, (byte) 0x93, (byte) 0x11, (byte) 0x9C 
     };
 
-    private static byte[] KaWeixinA1 = new byte[] {
+    private static byte[] KaWeixinA1 = {
             (byte) 0x92, (byte) 0xE0, (byte) 0x83, (byte) 0x5B,
             (byte) 0xF9, (byte) 0x7F, (byte) 0xC9, (byte) 0xA3,
             (byte) 0xAA, (byte) 0xBD, (byte) 0x46, (byte) 0x6A,
