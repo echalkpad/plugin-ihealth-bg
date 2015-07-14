@@ -18,7 +18,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.SystemClock;
 
-public class Bg5ManagerCordova extends CordovaPlugin {
+public class BgManagerCordova extends CordovaPlugin {
 
     private Bg5Manager mBg5Manager;
     private Context mContext;
