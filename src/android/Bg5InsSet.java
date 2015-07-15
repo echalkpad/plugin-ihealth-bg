@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +16,6 @@ import android.content.Intent;
 import android.util.Log;
 
 public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
-
 	
 	private static final String TAG = "Bg5InsSet";
 	

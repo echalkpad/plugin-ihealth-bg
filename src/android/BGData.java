@@ -1,4 +1,4 @@
-package jiuan.androidBg.Bluetooth;
+package com.ihealth.plugin;
 
 public class BGData {
 	
