@@ -146,9 +146,9 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		returnCommand[0] = deviceType;
 		returnCommand[1] = commandID;
 		returnCommand[2] = (byte)0;
-		returnCommand[3] = (byte)0;;
-		returnCommand[4] = (byte)0;;
-		returnCommand[5] = (byte)0;;
+		returnCommand[3] = (byte)0;
+		returnCommand[4] = (byte)0;
+		returnCommand[5] = (byte)0;
 		btcm.packageData(null, returnCommand);
 	}
 	
@@ -237,6 +237,16 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		return allCodeBuf;
 	}
 	
+	public void getCode(){
+		byte[] returnCommand = new byte[5];
+		byte commandID = (byte) 0x46;
+		returnCommand[0] = deviceType;
+		returnCommand[1] = commandID;
+		returnCommand[2] = (byte)0;
+		returnCommand[3] = (byte)0;
+		returnCommand[4] = (byte)0;
+		btcm.packageData(null, returnCommand);
+	}
 	
 	@Override
 	public void haveNewData(int what, int stateId, byte[] returnData) {
@@ -271,6 +281,24 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 					| ((returnData[1] << 24) >>> 8) | (returnData[0] << 24);
 			intent2e.putExtra(MSG_GET_BOTTLEID_EXTRA, value);
 			mContext.sendBroadcast(intent2e);
+			break;
+
+		case 0x3f:
+			Intent intent3f = new Intent(MSG_GET_CODE);
+			int leftnum = (int)(returnData[117] & 0xff);
+			int year = (int)(returnData[119] & 0xff);
+			int month = (int)(returnData[120] & 0xff);
+			int day = (int)(returnData[121] & 0xff);
+			Calendar time = Calendar.getInstance();
+			time.clear();
+			time.set(Calendar.YEAR, year);
+			time.set(Calendar.MONTH, month-1);
+			time.set(Calendar.DAY, day);
+			Long ts = time.getTime().getTime();
+			intent3f.putExtra(Bg5Manager.MSG_MAC, mAddress);	
+			intent3f.putExtra(MSG_GET_CODE_EXTRA, ByteBufferUtil.Bytes2HexString(returnData));
+			intent3f.putExtra(MSG_GET_LEFTNUM, leftnum);
+			intent3f.putExtra(MSG_GET_EXPIRECTIME, ts);
 			break;
 
 		case 0xf0:

@@ -42,7 +42,7 @@ public class Bg5Control implements DeviceControl{
 	}
 
 	public void getBottleMessage() {
-		
+		mBg5InsSet.getCode();
 	}
 
 	public void getOfflineData() {
