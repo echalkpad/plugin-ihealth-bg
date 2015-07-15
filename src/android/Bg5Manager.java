@@ -241,10 +241,10 @@ public class Bg5Manager {
 		}
 	}
 
-	public void setBottleId(String mac){
+	public void setBottleId(String mac, int bottleId){
 		Bg5Control bg5Control = mapBg5Control.get(mac);
 		if(null != bg5Control){
-			bg5Control.setBottleId();
+			bg5Control.setBottleId(bottleId);
 		}
 	}
 
