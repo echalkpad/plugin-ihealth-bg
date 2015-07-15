@@ -26,7 +26,8 @@
     <config-file target="AndroidManifest.xml" parent="/manifest">
       <uses-permission android:name="android.permission.BLUETOOTH" />
       <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    </config-file>    
+    </config-file>
+    <source-file src="src/android/BGData.java" target-dir="src/com/ihealth/plugin/"/>     
     <source-file src="src/android/BaseComm.java" target-dir="src/com/ihealth/plugin/"/> 
     <source-file src="src/android/BaseCommProtocol.java" target-dir="src/com/ihealth/plugin/"/> 
     <source-file src="src/android/BtCommThread.java" target-dir="src/com/ihealth/plugin/"/> 

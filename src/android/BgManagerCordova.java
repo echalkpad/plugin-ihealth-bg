@@ -206,6 +206,7 @@ public class BgManagerCordova extends CordovaPlugin {
         	
         } else if(action.equals("setBottleId")){
             String mac = args.getString(0);
+            int bottleid = args.getInt(1);
             mBg5Manager.getBg5Control(mac).setBottleId();
             return true;
 
