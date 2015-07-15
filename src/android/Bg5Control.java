@@ -32,10 +32,6 @@ public class Bg5Control implements DeviceControl{
 	public void startMeasure(){
 		
 	}	
-	
-	public void getCode(){
-		
-	}
 
 	public void setBottleMessage(String qr, int mun, long timeTs) {
 		

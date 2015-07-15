@@ -152,7 +152,7 @@ public class BgManagerCordova extends CordovaPlugin {
         		listtemp.add(callbackContext);
         		mapCallback.put(mac, listtemp);
         	}
-        	mBg5Manager.getBg5Control(mac).getCode();
+        	mBg5Manager.getBg5Control(mac).getBottleMessage();
             return true;
             
 		} else if (action.equals("startMeasure")) {
