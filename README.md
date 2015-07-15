@@ -15,33 +15,32 @@ This is a cordova plugin for ihealth bg5.
     
 
 ##### BgManagerCordova.startDiscovery("", success, failure);
+>> 启动普通蓝牙扫面，10秒后自动结束扫面
 
 ##### BgManagerCordova.stopDiscovery("", success, failure);
 
+
 ##### BgManagerCordova.startMeasure(mac, success, failure);
-    
-      BgManagerCordova.stopMeasure(mac, success, failure);
 
-   
-      BgManagerCordova.setUnit(mac, success, failure, 1);
+##### BgManagerCordova.stopMeasure(mac, success, failure);
 
-      BgManagerCordova.setBottleMessage(mac, success, failure);
+##### BgManagerCordova.setUnit(mac, success, failure, 1);
 
-      BgManagerCordova.getBottleMessage(mac, success, failure);
+##### BgManagerCordova.setBottleMessage(mac, success, failure);
 
-      BgManagerCordova.setBottleId(mac, success, failure);
+##### BgManagerCordova.getBottleMessage(mac, success, failure);
 
-      BgManagerCordova.getBottleId(mac, success, failure);
+##### BgManagerCordova.setBottleId(mac, success, failure);
 
-      BgManagerCordova.getOfflineData(mac, success, failure);
+##### BgManagerCordova.getBottleId(mac, success, failure);
 
-      BgManagerCordova.getBattery(mac, success, failure);
+##### BgManagerCordova.getOfflineData(mac, success, failure);
 
-      BgManagerCordova.deleteOfflineData(mac, success, failure);
+##### BgManagerCordova.getBattery(mac, success, failure);
 
-      BgManagerCordova.disConnectDevice(mac, success, failure);
+##### BgManagerCordova.deleteOfflineData(mac, success, failure);
 
-      BgManagerCordova.setDisconnectCallback(mac, success, failure);
+##### BgManagerCordova.disConnectDevice(mac, success, failure);
 
-      BgManagerCordova.holdLink(mac, success, failure);
+
   
