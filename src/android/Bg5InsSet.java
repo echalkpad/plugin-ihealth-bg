@@ -333,11 +333,11 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			break;
 
 		case 0x36:
-			Intent intent35 = new Intent(MSG_GET_VALUE);
-			intent35.putExtra(Bg5Manager.MSG_MAC, mAddress);
-			int value = (int)(returnData[1]&0xff) + ((int)(returnData[0]&0xff)) * 256;
-			intent35.putExtra(MSG_GET_VALUE_EXTRA, value);
-			mContext.sendBroadcast(intent2e);
+			Intent intent36 = new Intent(MSG_GET_VALUE);
+			intent36.putExtra(Bg5Manager.MSG_MAC, mAddress);
+			int value36 = (int)(returnData[1]&0xff) + ((int)(returnData[0]&0xff)) * 256;
+			intent36.putExtra(MSG_GET_VALUE_EXTRA, value36);
+			mContext.sendBroadcast(intent36);
 			break;
 		
 		case 0x39:
