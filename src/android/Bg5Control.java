@@ -33,8 +33,12 @@ public class Bg5Control implements DeviceControl{
 		
 	}	
 
+	public void setBottleMessage(String qr) {
+		mBg5InsSet.setBottleMessage(qr);
+	}
+
 	public void setBottleMessage(String qr, int mun, long timeTs) {
-		
+		mBg5InsSet.setBottleMessage(qr, num, timeTs);
 	}
 
 	public void getBottleMessage() {

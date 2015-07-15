@@ -172,6 +172,36 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		
 	}
 	
+	public void setBottleMessage(String qr){
+		byte[] codes = complieQR(qr);
+		byte[] returnCommand = new byte[128];
+		byte commandID = (byte) 0x25;
+		returnCommand[0] = deviceType;
+		returnCommand[1] = commandID;
+		for(int i = 0; i < 126; i++){
+			returnCommand[2 + i] = codes[i];
+		}
+		
+		btcm.packageData(null, returnCommand);
+	}
+
+	public void setBottleMessage(String qr, byte leftnum, byte year, byte month, byte day){
+		byte[] codes = complieQR(qr);
+		byte[] returnCommand = new byte[128];
+		byte commandID = (byte) 0x25;
+		returnCommand[0] = deviceType;
+		returnCommand[1] = commandID;
+		for(int i = 0; i < 126; i++){
+			returnCommand[2 + i] = codes[i];
+		}
+		returnCommand[119] = leftnum
+		returnCommand[121] = year;
+		returnCommand[122] = month;
+		returnCommand[123] = day;
+
+		btcm.packageData(null, returnCommand);
+	}
+
 	private byte[] complieQR(String qr) {
 		byte[] allCodeBuf;
 		allCodeBuf = new byte[126];
@@ -217,8 +247,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		allCodeBuf[114] = someCodeBuf[20];
 		allCodeBuf[115] = someCodeBuf[21];
 		allCodeBuf[116] = ByteBufferUtil.hexStringToByte(bloodStr[3])[0];
-		allCodeBuf[117] = someCodeBuf[22];
-		// 试纸条数
+		allCodeBuf[117] = someCodeBuf[22];// 试纸条数
 		allCodeBuf[118] = someCodeBuf[23];
 		Integer year = (someCodeBuf[24] & 0xFE) >> 1;
 		Integer month = (someCodeBuf[24] & 0x01) * 8 + ((someCodeBuf[25] & 0xE0) >> 5);
@@ -283,8 +312,46 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			mContext.sendBroadcast(intent2e);
 			break;
 
+		case 0x33:
+			ask();
+			Intent intent33 = new Intent(MSG_STRIP_IN);
+			intent33.putExtra(Bg5Manager.MSG_MAC, mAddress);
+			mContext.sendBroadcast(intent33);
+			break;
+
+		case 0x34:
+			ask();
+			Intent intent34 = new Intent(MSG_GET_BLOOD);
+			intent34.putExtra(Bg5Manager.MSG_MAC, mAddress);
+			mContext.sendBroadcast(intent34);
+			break;
+
+		case 0x35:
+			Intent intent35 = new Intent(MSG_STRIP_OUT);
+			intent35.putExtra(Bg5Manager.MSG_MAC, mAddress);
+			mContext.sendBroadcast(intent35);
+			break;
+
+		case 0x36:
+			Intent intent35 = new Intent(MSG_GET_VALUE);
+			intent35.putExtra(Bg5Manager.MSG_MAC, mAddress);
+			int value = (int)(returnData[1]&0xff) + ((int)(returnData[0]&0xff)) * 256;
+			intent35.putExtra(MSG_GET_VALUE_EXTRA, value);
+			mContext.sendBroadcast(intent2e);
+			break;
+		
+		case 0x39:
+			ask();
+			break;	
+
+		case 0x3a:
+			break;
+
+
+
+
 		case 0x46:
-			Intent intent3f = new Intent(MSG_GET_CODE);
+			Intent intent46 = new Intent(MSG_GET_CODE);
 			int leftnum = (int)(returnData[117] & 0xff);
 			int year = (int)(returnData[119] & 0xff);
 			int month = (int)(returnData[120] & 0xff);
@@ -292,14 +359,15 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			Calendar time = Calendar.getInstance();
 			time.clear();
 			time.set(Calendar.YEAR, year);
-			time.set(Calendar.MONTH, month-1);
+			time.set(Calendar.MONTH, month - 1);
 			time.set(Calendar.DATE, day);
-			Long ts = time.getTime().getTime();
-			intent3f.putExtra(Bg5Manager.MSG_MAC, mAddress);	
-			intent3f.putExtra(MSG_GET_CODE_EXTRA, ByteBufferUtil.Bytes2HexString(returnData));
-			intent3f.putExtra(MSG_GET_LEFTNUM, leftnum);
-			intent3f.putExtra(MSG_GET_EXPIRECTIME, ts);
-			mContext.sendBroadcast(intent3f);
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        	String time = df.format(time.getTime());
+			intent46.putExtra(Bg5Manager.MSG_MAC, mAddress);	
+			intent46.putExtra(MSG_GET_CODE_EXTRA, ByteBufferUtil.Bytes2HexString(returnData));
+			intent46.putExtra(MSG_GET_LEFTNUM, leftnum);
+			intent46.putExtra(MSG_GET_EXPIRECTIME, time);
+			mContext.sendBroadcast(intent46);
 			break;
 
 		case 0xf0:

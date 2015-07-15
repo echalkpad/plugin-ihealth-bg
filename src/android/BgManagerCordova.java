@@ -131,15 +131,20 @@ public class BgManagerCordova extends CordovaPlugin {
             String qr = args.getString(1);
             int leftNum = args.getInt(2);
             long timeTs = args.getLong(3);
-            List<CallbackContext> list = mapCallback.get(mac);
-        	if(list != null){
-        		list.add(callbackContext);
-        	}else{
-        		List<CallbackContext> listtemp = new ArrayList<CallbackContext>();
-        		listtemp.add(callbackContext);
-        		mapCallback.put(mac, listtemp);
-        	}
-        	mBg5Manager.getBg5Control(mac).setBottleMessage(qr, leftNum, timeTs);
+             List<CallbackContext> list = mapCallback.get(mac);
+            if(list != null){
+                list.add(callbackContext);
+            }else{
+                List<CallbackContext> listtemp = new ArrayList<CallbackContext>();
+                listtemp.add(callbackContext);
+                mapCallback.put(mac, listtemp);
+            }
+            
+            if(timeTs == 0){
+                mBg5Manager.getBg5Control(mac).setBottleMessage(qr);
+            }else{
+                mBg5Manager.getBg5Control(mac).setBottleMessage(qr, leftNum, timeTs);
+            }        	
             return true;
             
         } else if(action.equals("getBottleMessage")) {
@@ -255,7 +260,7 @@ public class BgManagerCordova extends CordovaPlugin {
                 String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
                 String code = intent.getStringExtra(Bg5InsSet.MSG_GET_CODE_EXTRA);
                 int leftnum = intent.getIntExtra(Bg5InsSet.MSG_GET_LEFTNUM, 0);
-                Long expiretime = intent.getLongExtra(Bg5InsSet.MSG_GET_EXPIRECTIME, 0);
+                String expiretime = intent.getLongExtra(Bg5InsSet.MSG_GET_EXPIRECTIME, 0);
                 JSONObject o = null;
                 try {
                     o = new JSONObject();
@@ -263,7 +268,7 @@ public class BgManagerCordova extends CordovaPlugin {
                     o.put("address", mac);
                     o.put("code", code);
                     o.put("leftnum", leftnum + "");
-                    o.put("expiretime", expiretime + "");
+                    o.put("expiretime", expiretime);
                 } catch (Exception e) {                   
                     e.printStackTrace();
                 }
@@ -443,6 +448,57 @@ public class BgManagerCordova extends CordovaPlugin {
                 } catch (Exception e) {                   
                     e.printStackTrace();
                 } 
+                keepCallback(mCallbackContext, o.toString());
+
+            } else if(Bg5InsSet.MSG_STRIP_IN.equals(action)){
+                String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
+                JSONObject o = null;
+                try {
+                    o = new JSONObject();
+                    o.put("msg", "strip in");
+                    o.put("address", mac);
+                } catch (Exception e) {                   
+                    e.printStackTrace();
+                } 
+                keepCallback(mCallbackContext, o.toString());
+
+            } else if(Bg5InsSet.MSG_GET_BLOOD.equals(action)){
+                String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
+                JSONObject o = null;
+                try {
+                    o = new JSONObject();
+                    o.put("msg", "get blood");
+                    o.put("address", mac);
+                } catch (Exception e) {                   
+                    e.printStackTrace();
+                } 
+                keepCallback(mCallbackContext, o.toString());    
+
+            } else if(Bg5InsSet.MSG_STRIP_OUT.equals(action)){
+                String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
+                JSONObject o = null;
+                try {
+                    o = new JSONObject();
+                    o.put("msg", "strip out");
+                    o.put("address", mac);
+                } catch (Exception e) {                   
+                    e.printStackTrace();
+                } 
+                keepCallback(mCallbackContext, o.toString());
+
+            } else if(Bg5InsSet.MSG_GET_VALUE.equals(action)){
+                String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
+                int value = intent.getIntExtra(Bg5InsSet.MSG_GET_VALUE_EXTRA, 0);
+                JSONObject o = null;
+                try {
+                    o = new JSONObject();
+                    o.put("msg", "value");
+                    o.put("address", mac);
+                    o.put("value", value);
+                } catch (Exception e) {                   
+                    e.printStackTrace();
+                } 
+                keepCallback(mCallbackContext, o.toString());
             }
         }
     };
