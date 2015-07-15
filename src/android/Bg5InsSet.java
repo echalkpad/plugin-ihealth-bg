@@ -293,7 +293,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			time.clear();
 			time.set(Calendar.YEAR, year);
 			time.set(Calendar.MONTH, month-1);
-			time.set(Calendar.DAY, day);
+			time.set(Calendar.DATE, day);
 			Long ts = time.getTime().getTime();
 			intent3f.putExtra(Bg5Manager.MSG_MAC, mAddress);	
 			intent3f.putExtra(MSG_GET_CODE_EXTRA, ByteBufferUtil.Bytes2HexString(returnData));
