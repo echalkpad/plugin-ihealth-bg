@@ -267,8 +267,8 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		case 0x2e:
 			Intent intent2e = new Intent(MSG_GET_BOTTLEID);
 			intent2e.putExtra(Bg5Manager.MSG_MAC, mAddress);
-			int value = (res[3] & 0xff) | ((res[2] << 8) & 0xff00) // | 表示安位或
-					| ((res[1] << 24) >>> 8) | (res[0] << 24);
+			int value = (returnData[3] & 0xff) | ((returnData[2] << 8) & 0xff00) // | 表示安位或
+					| ((returnData[1] << 24) >>> 8) | (returnData[0] << 24);
 			intent2e.putExtra(MSG_GET_BOTTLEID_EXTRA, value);
 			mContext.sendBroadcast(intent2e);
 			break;

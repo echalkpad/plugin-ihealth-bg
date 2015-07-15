@@ -58,6 +58,14 @@ public class Bg5Control implements DeviceControl{
 		
 	}
 
+	public void setBottleId(){
+
+	}
+
+	public void getBottleId(){
+		mBg5InsSet.getBottleId();
+	}
+
 	@Override
 	public void init() {
 		mBg5InsSet.identify(false);
