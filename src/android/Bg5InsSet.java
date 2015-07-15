@@ -194,7 +194,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		for(int i = 0; i < 126; i++){
 			returnCommand[2 + i] = codes[i];
 		}
-		returnCommand[119] = leftnum
+		returnCommand[119] = leftnum;
 		returnCommand[121] = year;
 		returnCommand[122] = month;
 		returnCommand[123] = day;
