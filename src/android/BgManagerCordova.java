@@ -433,7 +433,7 @@ public class BgManagerCordova extends CordovaPlugin {
                 	}
             	}
             	mapCallback.remove(mac);
-            } else if(Bg5InsSet.MSG_SET_UNIT.equals){
+            } else if(Bg5InsSet.MSG_SET_UNIT.equals.equals(action)){
                 String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
                 JSONObject o = null;
                 try {
