@@ -299,6 +299,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			intent3f.putExtra(MSG_GET_CODE_EXTRA, ByteBufferUtil.Bytes2HexString(returnData));
 			intent3f.putExtra(MSG_GET_LEFTNUM, leftnum);
 			intent3f.putExtra(MSG_GET_EXPIRECTIME, ts);
+			mContext.sendBroadcast(intent3f);
 			break;
 
 		case 0xf0:
