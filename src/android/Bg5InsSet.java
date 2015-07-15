@@ -165,7 +165,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 
 	private void readEE(int i){
 		byte[] returnCommand = new byte[5];
-		byte commandID = (byte) 0x42;
+		byte commandID = (byte) 0x40;
 		returnCommand[0] = deviceType;
 		returnCommand[1] = commandID;
 		returnCommand[2] = (byte)0;
