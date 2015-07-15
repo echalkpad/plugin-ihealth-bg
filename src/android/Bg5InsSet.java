@@ -257,10 +257,6 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			break;
 		case 0xfe:
 			break;
-			
-		case 0x20:
-			battery = returnData[0];
-			break;
 		
 		case 0x23:
 			Intent intent23 = new Intent(MSG_SET_UNIT);
