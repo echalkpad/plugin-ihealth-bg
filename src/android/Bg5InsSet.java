@@ -310,7 +310,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 	}
 	
 	private int eeTime = 0;
-	private int eeCount = 0
+	private int eeCount = 0;
 	@Override
 	public void haveNewData(int what, int stateId, byte[] returnData) {
 		Log.i(TAG, "what:" + what);
