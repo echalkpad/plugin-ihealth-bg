@@ -347,9 +347,6 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		case 0x3a:
 			break;
 
-
-
-
 		case 0x46:
 			Intent intent46 = new Intent(MSG_GET_CODE);
 			int leftnum = (int)(returnData[117] & 0xff);

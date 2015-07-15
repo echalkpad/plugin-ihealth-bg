@@ -260,7 +260,7 @@ public class BgManagerCordova extends CordovaPlugin {
                 String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
                 String code = intent.getStringExtra(Bg5InsSet.MSG_GET_CODE_EXTRA);
                 int leftnum = intent.getIntExtra(Bg5InsSet.MSG_GET_LEFTNUM, 0);
-                String expiretime = intent.getLongExtra(Bg5InsSet.MSG_GET_EXPIRECTIME, 0);
+                String expiretime = intent.getStringExtra(Bg5InsSet.MSG_GET_EXPIRECTIME);
                 JSONObject o = null;
                 try {
                     o = new JSONObject();

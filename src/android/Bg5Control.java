@@ -37,8 +37,13 @@ public class Bg5Control implements DeviceControl{
 		mBg5InsSet.setBottleMessage(qr);
 	}
 
-	public void setBottleMessage(String qr, int mun, long timeTs) {
-		mBg5InsSet.setBottleMessage(qr, num, timeTs);
+	public void setBottleMessage(String qr, int mun, long timeTs) {	
+		Calendar time = Calendar.getInstance();
+		time.setTimeInMillis(millis);	 
+		byte year = (byte)(time.get(Calendar.YEAR));
+		byte month = (byte)(time.get(Calendar.MONTH) + 1); 
+		byte day = (byte)(time.get(Calendar.DATE));	
+		mBg5InsSet.setBottleMessage(qr, (int)num, year, month, day);
 	}
 
 	public void getBottleMessage() {
