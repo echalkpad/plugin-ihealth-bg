@@ -208,7 +208,7 @@ public class BgManagerCordova extends CordovaPlugin {
             String mac = args.getString(0);
             mBg5Manager.getBg5Control(mac).getBottleId();
             return true;
-            
+
         } else {
             mCallbackContext.error(MSG_NO_METHOD);
             return false;
@@ -433,7 +433,7 @@ public class BgManagerCordova extends CordovaPlugin {
                 	}
             	}
             	mapCallback.remove(mac);
-            } else if(Bg5InsSet.MSG_SET_UNIT.equals.equals(action)){
+            } else if(Bg5InsSet.MSG_SET_UNIT.equals(action)){
                 String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
                 JSONObject o = null;
                 try {
