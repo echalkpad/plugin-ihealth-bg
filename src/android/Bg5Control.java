@@ -32,7 +32,7 @@ public class Bg5Control implements DeviceControl{
 	
 	
 	public void startMeasure(){
-		
+		mBg5InsSet.startMeasure(1);
 	}	
 
 	public void setBottleMessage(String qr) {

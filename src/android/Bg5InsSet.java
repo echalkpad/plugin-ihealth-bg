@@ -350,7 +350,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		case 0x46:
 			Intent intent46 = new Intent(MSG_GET_CODE);
 			int leftnum = (int)(returnData[117] & 0xff);
-			int year = (int)(returnData[119] & 0xff);
+			int year = 2000 + (int)(returnData[119] & 0xff);
 			int month = (int)(returnData[120] & 0xff);
 			int day = (int)(returnData[121] & 0xff);
 			Calendar time = Calendar.getInstance();
