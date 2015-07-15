@@ -28,33 +28,10 @@ public class Bg5Control implements DeviceControl{
 		
 	}
 	
-	public void enableMeasure(){
-		
-	}
-	
-	public void disenableMeasure(){
-		
-	}
 	
 	public void startMeasure(){
 		
-	}
-	
-	public void getHistoryData(int index){
-		
-	}
-	
-	public void getHistoryNum(){
-		
-	}
-	
-	public void deleteHistoryData(){
-		
-	}
-	
-	public void holdLink(){
-		
-	}
+	}	
 	
 	public void getCode(){
 		
@@ -73,7 +50,11 @@ public class Bg5Control implements DeviceControl{
 	}
 
 	public void deleteOfflineData() {
-		// TODO Auto-generated method stub
+		
+		
+	}
+
+	public void holdLink(){
 		
 	}
 

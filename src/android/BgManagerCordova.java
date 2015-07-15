@@ -61,6 +61,7 @@ public class BgManagerCordova extends CordovaPlugin {
         intentFilter.addAction(Bg5InsSet.MSG_GET_VALUE);
         intentFilter.addAction(Bg5InsSet.MSG_STRIP_OUT);
         intentFilter.addAction(Bg5InsSet.MSG_GET_HISTORY);
+        intentFilter.addAction(Bg5InsSet.MSG_SET_UNIT);
         intentFilter.addAction(MSG_TEST_DATA);
         mContext.registerReceiver(mReceiver, intentFilter);
     }
@@ -96,22 +97,17 @@ public class BgManagerCordova extends CordovaPlugin {
         } else if (action.equals("setUnit")) {
             String mac = args.getString(0);
             int unit = args.getInt(1);
-            if(!args.isNull(1) && args.getString(1).equals("debug")){
-            	testlist = null;
-            	testlist = mUnitTest.getTestMeasure();
-        		TestThread();
+            
+            List<CallbackContext> list = mapCallback.get(mac);
+            if(list != null){
+            	list.add(callbackContext);
             }else{
-            	List<CallbackContext> list = mapCallback.get(mac);
-            	if(list != null){
-            		list.add(callbackContext);
-            	}else{
-            		List<CallbackContext> listtemp = new ArrayList<CallbackContext>();
-            		listtemp.add(callbackContext);
-            		mapCallback.put(mac, listtemp);
-            	}
-            	if(null != mBg5Manager.getBg5Control(mac)){
-            		mBg5Manager.getBg5Control(mac).setUnit(unit);
-            	}
+            	List<CallbackContext> listtemp = new ArrayList<CallbackContext>();
+            	listtemp.add(callbackContext);
+            	mapCallback.put(mac, listtemp);
+            }
+            if(null != mBg5Manager.getBg5Control(mac)){
+            	mBg5Manager.getBg5Control(mac).setUnit(unit);
             }
             return true;
             
@@ -203,6 +199,16 @@ public class BgManagerCordova extends CordovaPlugin {
         	mapdisconnectCallback.put(mac, callbackContext);
         	return true;
         	
+        } else if(action.equals("setBottleId")){
+            String mac = args.getString(0);
+            mBg5Manager.getBg5Control(mac).setBottleId();
+            return true;
+
+        } else if(action.equals("getBottleId")){
+            String mac = args.getString(0);
+            mBg5Manager.getBg5Control(mac).getBottleId();
+            return true;
+            
         } else {
             mCallbackContext.error(MSG_NO_METHOD);
             return false;
@@ -379,17 +385,6 @@ public class BgManagerCordova extends CordovaPlugin {
                     e.printStackTrace();
                 }         
             	keepCallback(mCallbackContext, o.toString());
-            } else if(Bg5Manager.MSG_BT_CONNECTED.equals(action)){
-                String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
-                JSONObject o = null;
-                try {
-                    o = new JSONObject();
-                    o.put("msg", "connected");
-                    o.put("address", "mac");
-                } catch (Exception e) {                   
-                    e.printStackTrace();
-                }         
-                keepCallback(mCallbackContext, o.toString());
             } else if(Bg5Manager.MSG_BG5_IDPS.equals(action)){
             	String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
             	String str1 = intent.getStringExtra(Bg5Manager.MSG_BG5_IDPS_PROTOCOL);
@@ -403,7 +398,7 @@ public class BgManagerCordova extends CordovaPlugin {
             	try {
                     o = new JSONObject();
                     o.put("msg", "idps");
-                    o.put("mac", mac);
+                    o.put("address", mac);
                     o.put("potocol", str1);
                     o.put("accessoryname", str2);
                     o.put("firmware", str3);
@@ -422,7 +417,7 @@ public class BgManagerCordova extends CordovaPlugin {
             	try {
                     o = new JSONObject();
                     o.put("msg", "disconnect");
-                    o.put("mac", mac);
+                    o.put("address", mac);
                     o.put("type", type);
                 } catch (Exception e) {                   
                     e.printStackTrace();
@@ -438,6 +433,16 @@ public class BgManagerCordova extends CordovaPlugin {
                 	}
             	}
             	mapCallback.remove(mac);
+            } else if(Bg5InsSet.MSG_SET_UNIT.equals){
+                String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
+                JSONObject o = null;
+                try {
+                    o = new JSONObject();
+                    o.put("msg", "unit");
+                    o.put("address", mac);
+                } catch (Exception e) {                   
+                    e.printStackTrace();
+                } 
             }
         }
     };

@@ -36,6 +36,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 	public static final String MSG_STRIP_OUT = "com.ihealth.bt.bg5.strip.out";
 	public static final String MSG_GET_HISTORY = "com.ihealth.bt.bg5.get.history";
 	public static final String MSG_GET_HISTORY_EXTRA = "com.ihealth.bg.bg5.get.history.extra";
+	public static final String MSG_SET_UNIT = "com.ihealth.bg.bg5.set.unit";
 	
 	private static final byte deviceType = (byte) 0xa2;
 	private Context mContext;
@@ -71,26 +72,13 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 	public void identify(boolean b) {
 		btcm.packageData(null, identify(b, deviceType));
 	}
-
-	private void getBatteryLevel() {
-		byte[] returnCommand = new byte[5];
-		byte commandID = (byte) 0x20;
-		returnCommand[0] = deviceType;
-		returnCommand[1] = commandID;
-		returnCommand[2] = (byte) 0x00;
-		returnCommand[3] = (byte) 0x00;
-		returnCommand[4] = (byte) 0x00;
-		btcm.packageData(null, returnCommand);
-	}
 	
 	private void ask() {
 		byte[] returnCommand = new byte[1];
 		returnCommand[0] = deviceType;
 		btcm.packageDataAsk(returnCommand);
 	}
-	/**
-	 * 设置血糖仪时间 命令ID：0x21
-	 */
+	
 	public void setTime(){
 		byte[] returnCommand = new byte[8];
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -138,6 +126,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		returnCommand[4] = 0;
 		btcm.packageData(null, returnCommand);
 	}
+
 	public void setBottleId(int userId){
 		byte[] userIds = ByteBufferUtil.intTo4Byte(userId);
 		byte[] returnCommand = new byte[6];
@@ -152,7 +141,15 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 	}
 	
 	public void getBottleId(){
-		
+		byte[] returnCommand = new byte[6];
+		byte commandID = (byte) 0x2e;
+		returnCommand[0] = deviceType;
+		returnCommand[1] = commandID;
+		returnCommand[2] = (byte)0;
+		returnCommand[3] = (byte)0;;
+		returnCommand[4] = (byte)0;;
+		returnCommand[5] = (byte)0;;
+		btcm.packageData(null, returnCommand);
 	}
 	
 	/**
@@ -240,10 +237,6 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		return allCodeBuf;
 	}
 	
-	private int battery;
-	public int getBattery(){
-		return battery;
-	}
 	
 	@Override
 	public void haveNewData(int what, int stateId, byte[] returnData) {
@@ -268,6 +261,22 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		case 0x20:
 			battery = returnData[0];
 			break;
+		
+		case 0x23:
+			Intent intent23 = new Intent(MSG_SET_UNIT);
+			intent23.putExtra(Bg5Manager.MSG_MAC, mAddress);
+			mContext.sendBroadcast(intent23);
+			break;
+		
+		case 0x2e:
+			Intent intent2e = new Intent(MSG_GET_BOTTLEID);
+			intent2e.putExtra(Bg5Manager.MSG_MAC, mAddress);
+			int value = (res[3] & 0xff) | ((res[2] << 8) & 0xff00) // | 表示安位或
+					| ((res[1] << 24) >>> 8) | (res[0] << 24);
+			intent2e.putExtra(MSG_GET_BOTTLEID_EXTRA, value);
+			mContext.sendBroadcast(intent2e);
+			break;
+
 		case 0xf0:
 			String str = "";
 			// com.jiuan.BPV20

@@ -241,6 +241,20 @@ public class Bg5Manager {
 		}
 	}
 
+	public void setBottleId(String mac){
+		Bg5Control bg5Control = mapBg5Control.get(mac);
+		if(null != bg5Control){
+			bg5Control.setBottleId();
+		}
+	}
+
+	public void getBottleId(String mac){
+		Bg5Control bg5Control = mapBg5Control.get(mac);
+		if(null != bg5Control){
+			bg5Control.getBottleId();
+		}
+	}
+	
 	public void setBottleMessage(String mac, String qr, int mun, long data){
 		Bg5Control bg5Control = mapBg5Control.get(mac);
 		if(null != bg5Control){
