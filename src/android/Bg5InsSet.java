@@ -359,11 +359,11 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			time.set(Calendar.MONTH, month - 1);
 			time.set(Calendar.DATE, day);
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        	String time = df.format(time.getTime());
+        	String timestr = df.format(time.getTime());
 			intent46.putExtra(Bg5Manager.MSG_MAC, mAddress);	
 			intent46.putExtra(MSG_GET_CODE_EXTRA, ByteBufferUtil.Bytes2HexString(returnData));
 			intent46.putExtra(MSG_GET_LEFTNUM, leftnum);
-			intent46.putExtra(MSG_GET_EXPIRECTIME, time);
+			intent46.putExtra(MSG_GET_EXPIRECTIME, timestr);
 			mContext.sendBroadcast(intent46);
 			break;
 
