@@ -13,3 +13,35 @@ This is a cordova plugin for ihealth bg5.
 
     $ meteor remove cordova:com.ihealth.plugin.bgmanagercordova
     
+
+##### BgManagerCordova.startDiscovery("", success, failure);
+
+##### BgManagerCordova.stopDiscovery("", success, failure);
+
+##### BgManagerCordova.startMeasure(mac, success, failure);
+    
+      BgManagerCordova.stopMeasure(mac, success, failure);
+
+   
+      BgManagerCordova.setUnit(mac, success, failure, 1);
+
+      BgManagerCordova.setBottleMessage(mac, success, failure);
+
+      BgManagerCordova.getBottleMessage(mac, success, failure);
+
+      BgManagerCordova.setBottleId(mac, success, failure);
+
+      BgManagerCordova.getBottleId(mac, success, failure);
+
+      BgManagerCordova.getOfflineData(mac, success, failure);
+
+      BgManagerCordova.getBattery(mac, success, failure);
+
+      BgManagerCordova.deleteOfflineData(mac, success, failure);
+
+      BgManagerCordova.disConnectDevice(mac, success, failure);
+
+      BgManagerCordova.setDisconnectCallback(mac, success, failure);
+
+      BgManagerCordova.holdLink(mac, success, failure);
+  
