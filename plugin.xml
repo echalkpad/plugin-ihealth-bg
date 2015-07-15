@@ -26,30 +26,9 @@
     <config-file target="AndroidManifest.xml" parent="/manifest">
       <uses-permission android:name="android.permission.BLUETOOTH" />
       <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    </config-file>
-    <source-file src="src/android/BGData.java" target-dir="src/com/ihealth/plugin/"/>     
-    <source-file src="src/android/BaseComm.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/BaseCommProtocol.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/BtCommThread.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/Bg5Control.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/Bg5InsSet.java" target-dir="src/com/ihealth/plugin/"/>  
-    <source-file src="src/android/Bg5Manager.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/BgManagerCordova.java" target-dir="src/com/ihealth/plugin/"/>  
-    <source-file src="src/android/BtCommProtocol.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/BtUnpackageData.java" target-dir="src/com/ihealth/plugin/"/>  
-    <source-file src="src/android/ByteBufferUtil.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/CrcCheck.java" target-dir="src/com/ihealth/plugin/"/>
-    <source-file src="src/android/DataNotify.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/DataNotifyImpl.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/DeviceControl.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/HttpPost.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/HttpsPost.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/IdentifyIns.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/NewDataCallback.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/UnitTest.java" target-dir="src/com/ihealth/plugin/"/>   
-    <source-file src="src/android/WebConfig.java" target-dir="src/com/ihealth/plugin/"/> 
-    <source-file src="src/android/XXTEA.java" target-dir="src/com/ihealth/plugin/"/>      
-    <!-- <lib-file src="src/android/libs/pluginbp.jar" /> -->
+    </config-file> 
+    <source-file src="src/android/BgManagerCordova.java" target-dir="src/com/ihealth/plugin/"/>     
+    <lib-file src="src/android/libs/pluginbg.jar" />
 
   </platform>
 
