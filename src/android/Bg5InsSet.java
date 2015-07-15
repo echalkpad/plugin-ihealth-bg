@@ -283,7 +283,7 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			mContext.sendBroadcast(intent2e);
 			break;
 
-		case 0x3f:
+		case 0x46:
 			Intent intent3f = new Intent(MSG_GET_CODE);
 			int leftnum = (int)(returnData[117] & 0xff);
 			int year = (int)(returnData[119] & 0xff);
