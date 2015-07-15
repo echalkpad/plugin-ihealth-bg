@@ -499,6 +499,19 @@ public class BgManagerCordova extends CordovaPlugin {
                     e.printStackTrace();
                 } 
                 keepCallback(mCallbackContext, o.toString());
+            } else if(Bg5InsSet.MSG_GET_HISTORY.equals(action)){
+                String mac = intent.getStringExtra(Bg5Manager.MSG_MAC);
+                String history = intent.getStringExtra(Bg5InsSet.MSG_GET_HISTORY_EXTRA);
+                JSONObject o = null;
+                try {
+                    o = new JSONObject();
+                    o.put("msg", "value");
+                    o.put("address", mac);
+                    o.put("history", history);
+                } catch (Exception e) {                   
+                    e.printStackTrace();
+                } 
+                keepCallback(mCallbackContext, o.toString());
             }
         }
     };

@@ -152,6 +152,38 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		btcm.packageData(null, returnCommand);
 	}
 	
+	public void readEENum(){
+		byte[] returnCommand = new byte[5];
+		byte commandID = (byte) 0x42;
+		returnCommand[0] = deviceType;
+		returnCommand[1] = commandID;
+		returnCommand[2] = (byte)0;
+		returnCommand[3] = (byte)0;
+		returnCommand[4] = (byte)0;
+		btcm.packageData(null, returnCommand);
+	}
+
+	private void readEE(int i){
+		byte[] returnCommand = new byte[5];
+		byte commandID = (byte) 0x42;
+		returnCommand[0] = deviceType;
+		returnCommand[1] = commandID;
+		returnCommand[2] = (byte)0;
+		returnCommand[3] = (byte)0;
+		returnCommand[4] = (byte)i;
+		btcm.packageData(null, returnCommand);
+	}
+
+	public void deleteEE(){
+		byte[] returnCommand = new byte[5];
+		byte commandID = (byte) 0x43;
+		returnCommand[0] = deviceType;
+		returnCommand[1] = commandID;
+		returnCommand[2] = (byte)0;
+		returnCommand[3] = (byte)0;
+		returnCommand[4] = (byte)0;
+		btcm.packageData(null, returnCommand);
+	}
 	/**
 	 * 开始测量 命令ID：0x31 1代表血液测量方式, 2代表质控液测量方式。
 	 */
@@ -277,6 +309,8 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		btcm.packageData(null, returnCommand);
 	}
 	
+	private int eeTime = 0;
+	private int eeCount = 0
 	@Override
 	public void haveNewData(int what, int stateId, byte[] returnData) {
 		Log.i(TAG, "what:" + what);
@@ -345,6 +379,36 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 			break;	
 
 		case 0x3a:
+			break;
+
+		case 0x40:
+			int dataCount = (int) (returnData[0] & 0xFF);
+			String[] dataOffLine = new String[dataCount * 2];
+			if (array == null) {
+                array = createStringArrayToJson(dataOffLine);
+            } else {
+                array = addStringArrayToJson(array, dataOffLine);
+            }
+			if(eeTime > 0){
+				readEE(eeCount);
+			}else{
+				
+				Intent intent40 = new Intent(MSG_GET_HISTORY);
+				intent40.putExtra(Bg5Manager.MSG_MAC, mAddress);
+				intent40.putExtra(MSG_GET_HISTORY_EXTRA, array.toString());
+				mContext.sendBroadcast(intent40);
+			}
+			break;
+
+		case 0x42:
+			int len = (returnData[0] & 0xff) * 256 + (returnData[1] & 0xff);
+			eeTime = len/30 + 1;
+			eeCount = 0;
+			if(eeTime != 0){
+				readEE(eeCount);
+				eeTime -= 1;
+				eeCount += 1;
+			} 
 			break;
 
 		case 0x46:
@@ -482,5 +546,115 @@ public class Bg5InsSet extends IdentifyIns implements NewDataCallback{
 		return object.toString();
 	}
 
+	private JSONObject dataJson = null;
+    private JSONArray array = null;
+	private String[] getBGDataString(byte[] data) {
+		
+		int len = (int) (data[2] & 0xFF);//数据的个数
+		byte[] alltemp = new byte[data.length - 3];
+		for (int i = 3; i < data.length; i++) {
+			alltemp[i - 3] = data[i];//纯数据数组
+		}
+		String[] dataOffLine = new String[len*2];
+//		ArrayList<BGData> list = new ArrayList<BGData>();
+		int j = 0;
+		for (int i = 0; i < len; i++) {
+
+			String year = String.valueOf((int) (alltemp[0 + j] & 0xFF) + 2000);
+			String month = null;
+			if ((int) (alltemp[1 + j] & 0xFF) < 10) {
+				month = "0" + String.valueOf((int) (alltemp[1 + j] & 0xFF));
+			} else {
+				month = String.valueOf((int) (alltemp[1 + j] & 0xFF));
+			}
+			String day = null;
+			if ((int) (alltemp[2 + j] & 0xFF) < 10) {
+				day = "0" + String.valueOf((int) (alltemp[2 + j] & 0xFF));
+			} else {
+				day = String.valueOf((int) (alltemp[2 + j] & 0xFF));
+			}
+			String hour = null;
+			if ((int) (alltemp[3 + j] & 0xFF) < 10) {
+				hour = "0" + String.valueOf((int) (alltemp[3 + j] & 0xFF));
+			} else {
+				hour = String.valueOf((int) (alltemp[3 + j] & 0xFF));
+			}
+			String min = null;
+			if ((int) (alltemp[4 + j] & 0xFF) < 10) {
+				min = "0" + String.valueOf((int) (alltemp[4 + j] & 0xFF));
+			} else {
+				min = String.valueOf((int) (alltemp[4 + j] & 0xFF));
+			}
+			String str;
+			if(i<10){
+				str = "0"+i;
+			}else{
+				str = ""+i;
+			}
+			String date = year + "-" + month + "-" + day + " " + hour + ":"
+					+ min+":"+str;
+			int value = (int) (alltemp[5 + j] & 0xFF) * 256
+					+ (int) (alltemp[6 + j] & 0xFF);
+			dataOffLine[2*i] = date;
+			dataOffLine[2*i + 1] = value+"";
+			j += 8;
+
+		}
+		return dataOffLine;
+	}
+
+    private JSONArray createStringArrayToJson(String[] arr){  
+        ArrayList<BGData> list = new ArrayList<BGData>();  
+        for (int i = 0; i < (arr.length/2); i++) {  
+        	BGData data = new BGData();  
+            data.setBGData_Date(arr[2*i]);  
+            data.setBGData_Value(Integer.parseInt(arr[2*i+1]));  
+            list.add(data);  
+        }  
+        try {  
+            JSONArray array = new JSONArray();  
+            int length = list.size();  
+            for (int i = 0; i < length; i++) {  
+            	BGData data = list.get(i);  
+                String date = data.getBGData_Date();  
+                String value = data.getBGData_Value()+"";  
+                JSONObject stoneObject = new JSONObject();  
+                stoneObject.put("date", date);  
+                stoneObject.put("value", value);  
+                array.put(stoneObject);  
+            }  
+            return array;  
+        } catch (JSONException e) {  
+            e.printStackTrace();  
+        }  
+        return null;  
+    }
+    
+    private JSONArray addStringArrayToJson(JSONArray dataJson,String[] arr){
+    	 ArrayList<BGData> list = new ArrayList<BGData>();  
+         for (int i = 0; i < (arr.length/2); i++) {  
+         	BGData data = new BGData();  
+             data.setBGData_Date(arr[2*i]);  
+             data.setBGData_Value(Integer.parseInt(arr[2*i+1]));  
+             list.add(data);  
+         }
+         
+         try {  
+             int length = list.size();  
+             for (int i = 0; i < length; i++) {  
+             	BGData data = list.get(i);  
+                String date = data.getBGData_Date();  
+                String value = data.getBGData_Value()+"";  
+                JSONObject stoneObject = new JSONObject();  
+                stoneObject.put("date", date);  
+                stoneObject.put("value", value);  
+                dataJson.put(stoneObject);  
+             }  
+             return dataJson;  
+         } catch (JSONException e) {  
+             e.printStackTrace();  
+         }  
+         return null;  
+    }
 
 }

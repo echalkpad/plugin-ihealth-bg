@@ -53,20 +53,19 @@ public class Bg5Control implements DeviceControl{
 	}
 
 	public void getOfflineData() {
-		
+		mBg5InsSet.readEENum();
 	}
 
 	public void deleteOfflineData() {
-		
-		
+		mBg5InsSet.deleteEE();
 	}
 
 	public void holdLink(){
 		
 	}
 
-	public void setBottleId(){
-
+	public void setBottleId(int bottleId){
+		mBg5InsSet.setBottleId(bottleId);
 	}
 
 	public void getBottleId(){
