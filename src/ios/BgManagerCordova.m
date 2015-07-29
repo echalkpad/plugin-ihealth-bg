@@ -75,7 +75,7 @@ NSString* theCallbackId;
 
         BG5 *bgInstance = [bgArray objectAtIndex:0];
 
-        message setObject:bgInstance.serialNumber forKey:@"address"];
+        [message setObject:bgInstance.serialNumber forKey:@"address"];
 
         [bgInstance commandInitBGSetUnit:BGUnit_mmolPL BGUserID:@"" clientID:@"" clientSecret:@"" Authentication:^(UserAuthenResult result) {
             
@@ -113,7 +113,7 @@ NSString* theCallbackId;
 
         BG5 *bgInstance = [bgArray objectAtIndex:0];
 
-        message setObject:bgInstance.serialNumber forKey:@"address"];
+        [message setObject:bgInstance.serialNumber forKey:@"address"];
 
 
         [bgInstance commandCreateBGtestModel:BGMeasureMode_Blood DisposeBGStripInBlock:^(BOOL stripIn) {
