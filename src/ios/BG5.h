@@ -74,8 +74,15 @@ typedef enum{
     disposeBGBottleID, returns the ID which is stored in the BG meter, to verify if the strip has been used is from the same bottle of the registered one. if not, the app will notify the user need scan the new bottle, if yes, the app will get the number of left strips and expire date.
     disposeBGErrorBlock, error code, please refer to the error list.
  */
--(void)commandInitBGSetUnit:(BGUnit )unitState BGUserID:(NSString*)userID clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret Authentication:(DisposeAuthenticationBlock)disposeAuthenticationBlock DisposeBGBottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+//-(void)commandInitBGSetUnit:(BGUnit )unitState BGUserID:(NSString*)userID clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret Authentication:(DisposeAuthenticationBlock)disposeAuthenticationBlock DisposeBGBottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 
+-(void)commandInitBGSetUnit:(NSNumber*)unitState DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandGetbottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandSendBottleID:(NSNumber*)BottleID DisposeBGSendBottleIDBlock:(DisposeBGSendBottleIDBlock)disposeBGSendBottleIDBlock DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 //History records
 /*
  Return parameter:
@@ -101,6 +108,9 @@ typedef enum{
  */
 -(void)commandReadBGCodeDic:(DisposeBGCodeDic)disposeBGCodeDic DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 
+
+-(void)commandKeepConnectDisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
 //Send code
 /*
  Import parameters:
@@ -113,7 +123,7 @@ typedef enum{
     disposeBGStartModel, the boot mode of the BG meter, BGOpenMode_Strip means booting the meter by sliding the strip, BGOpenMode_Hand means booting the meter by pressing the on/off button. interface (6) will be called by the first mode, interface (7) will be called by the second mode.
     disposeBGErrorBlock，error codes.
  */
--(void)commandSendBGCodeString:(NSString*)encodeString bottleID:(NSNumber *)bottleID validDate:(NSDate*)date remainNum:(NSNumber*)num DisposeBGSendCodeBlock:(DisposeBGSendCodeBlock)disposeBGSendCodeBlock DisposeBGStartModel:(DisposeBGStartModel)disposeBGStartModel DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+-(void)commandSendBGCodeString:(NSString*)encodeString validDate:(NSString*)date remainNum:(NSNumber*)num DisposeBGSendCodeBlock:(DisposeBGSendCodeBlock)disposeBGSendCodeBlock DisposeBGStartModel:(DisposeBGStartModel)disposeBGStartModel DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 
 //Strip-Sliding booting mode
 /*

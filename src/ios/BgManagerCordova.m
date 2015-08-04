@@ -258,7 +258,7 @@ NSString* theCallbackId;
 
      NSString* mac = [command.arguments objectAtIndex:0];
 
-     NSNumber* qr = [command.arguments objectAtIndex:1];
+     NSString* qr = [command.arguments objectAtIndex:1];
 
      NSNumber* leftNum = [command.arguments objectAtIndex:2];
 
@@ -276,7 +276,7 @@ NSString* theCallbackId;
 
 
 
-     [bgInstance commandSendBGCodeString:qr validDate:timeTs remainNum:leftnum DisposeBGSendCodeBlock:^(BOOL sendOk) {
+     [bgInstance commandSendBGCodeString:qr validDate:timeTs remainNum:leftNum DisposeBGSendCodeBlock:^(BOOL sendOk) {
 
 
          [message setObject:@"setBottleMessage" forKey:@"msg"];
