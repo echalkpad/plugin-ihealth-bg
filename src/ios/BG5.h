@@ -74,8 +74,15 @@ typedef enum{
     disposeBGBottleID, returns the ID which is stored in the BG meter, to verify if the strip has been used is from the same bottle of the registered one. if not, the app will notify the user need scan the new bottle, if yes, the app will get the number of left strips and expire date.
     disposeBGErrorBlock, error code, please refer to the error list.
  */
--(void)commandInitBGSetUnit:(BGUnit )unitState BGUserID:(NSString*)userID clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret Authentication:(DisposeAuthenticationBlock)disposeAuthenticationBlock DisposeBGBottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+//-(void)commandInitBGSetUnit:(BGUnit )unitState BGUserID:(NSString*)userID clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret Authentication:(DisposeAuthenticationBlock)disposeAuthenticationBlock DisposeBGBottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 
+-(void)commandInitBGSetUnit:(NSString*)unitState DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandGetbottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandSendBottleID:(NSNumber*)BottleID DisposeBGSendBottleIDBlock:(DisposeBGSendBottleIDBlock)disposeBGSendBottleIDBlock DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 //History records
 /*
  Return parameter:
@@ -100,6 +107,9 @@ typedef enum{
     disposeBGErrorBlock，error codes.
  */
 -(void)commandReadBGCodeDic:(DisposeBGCodeDic)disposeBGCodeDic DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandKeepConnectDisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 
 //Send code
 /*

@@ -55,6 +55,43 @@ NSString* theCallbackId;
     
 }
 
+- (BG5*) getBG5withMac:(NSString *)mac{
+
+
+    if (mac.length>0)
+    {
+
+         bgController = [BG5Controller shareIHBg5Controller];
+
+    NSArray *bgArray = [bgController getAllCurrentBG5Instace];
+
+    if (bgArray.count>0)
+    {
+        for(BG5 *tempBG5 in bgArray){
+
+          if([mac isEqualToString:tempBG5.serialNumber]){
+            
+            return tempBG5;
+            break;
+          
+          }
+        }
+    }else{
+
+        return nil;
+
+    }    
+        
+    }else{
+
+         return nil;
+
+    }
+   
+
+}
+
+
 #pragma mark -
 #pragma mark some Methods
 
@@ -63,36 +100,83 @@ NSString* theCallbackId;
 
     bgController = [BG5Controller shareIHBg5Controller];
 
+
+    NSArray *bgArray = [bgController getAllCurrentBG5Instace];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    for (int i = 0; i < bgArray.count; i++)
+    {
+        
+    BG5*myBg5=[bgArray objectAtIndex:i];
+        
+       
+    [message setObject:@"discovery doing" forKey:@"msg"];
+    [message setObject:myBg5.serialNumber forKey:@"address"];
+    [message setObject:@"BG5" forKey:@"name"];
+
+
+    [self sendCallBackJsonData:message command:command];
+
+    }
+
 }
+
+- (void) stopDiscovery:(CDVInvokedUrlCommand*)command{
+
+     NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    [message setObject:@"discovery done" forKey:@"msg"];
+
+    [message setObject:mac forKey:@"address"];
+
+    [self sendCallBackJsonData:message command:command];
+
+}
+
 - (void) setUnit:(CDVInvokedUrlCommand*)command{
 
-     NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+    NSString* mac = [command.arguments objectAtIndex:0];
 
-     NSArray *bgArray = [bgController getAllCurrentBG5Instace];
+    NSString* unit = [command.arguments objectAtIndex:1];
 
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
 
-     if(bgArray.count>0){
-
-        BG5 *bgInstance = [bgArray objectAtIndex:0];
-
-        [message setObject:bgInstance.serialNumber forKey:@"address"];
-
-        [bgInstance commandInitBGSetUnit:BGUnit_mmolPL BGUserID:@"" clientID:@"" clientSecret:@"" Authentication:^(UserAuthenResult result) {
-            
-        } DisposeBGBottleID:^(NSNumber *bottleID) {
+    BG5 *bgInstance = [self getBG5withMac:mac];
 
 
-             [message setObject:@"bottleid" forKey:@"msg"];
-
-             [message setObject:bottleID forKey:@"bottleid"];
+     if(bgInstance!=nil){
 
 
-             [self sendCallBackJsonData:message command:command];
+        [message setObject:mac forKey:@"address"];
 
-            
-        } DisposeBGErrorBlock:^(NSNumber *errorID) {
-            
+
+        [bgInstance commandInitBGSetUnit:unit DisposeBGErrorBlock:^(NSNumber *errorID) {
+
+
+        
         }];
+
+         [self sendCallBackJsonData:message command:command];
+
+        // [bgInstance commandInitBGSetUnit:unit BGUserID:@"" clientID:@"" clientSecret:@"" Authentication:^(UserAuthenResult result) {
+            
+        // } DisposeBGBottleID:^(NSNumber *bottleID) {
+
+
+        //      [message setObject:@"bottleid" forKey:@"msg"];
+
+        //      [message setObject:bottleID forKey:@"bottleid"];
+
+
+        //      [self sendCallBackJsonData:message command:command];
+
+            
+        // } DisposeBGErrorBlock:^(NSNumber *errorID) {
+            
+        // }];
     }else{
 
         [message setObject:@"No Device" forKey:@"msg"];
@@ -102,18 +186,290 @@ NSString* theCallbackId;
 
 
 }
-- (void) startMeasure:(CDVInvokedUrlCommand*)command{
+
+- (void) setBottleId:(CDVInvokedUrlCommand*)command{
+
+    NSString* mac = [command.arguments objectAtIndex:0];
+
+     NSNumber* bottleID = [command.arguments objectAtIndex:1];
+
 
      NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
 
-     NSArray *bgArray = [bgController getAllCurrentBG5Instace];
+    BG5 *bgInstance = [self getBG5withMac:mac];
 
 
-     if(bgArray.count>0){
+     if(bgInstance!=nil){
 
-        BG5 *bgInstance = [bgArray objectAtIndex:0];
+     [bgInstance commandSendBottleID:bottleID DisposeBGSendBottleIDBlock:^(BOOL sendOk) {
 
-        [message setObject:bgInstance.serialNumber forKey:@"address"];
+        [message setObject:mac forKey:@"address"];
+
+        [self sendCallBackJsonData:message command:command];
+
+        
+    } DisposeBGErrorBlock:^(NSNumber *errorID) {
+        
+    }];
+
+
+
+     }else{
+
+        [message setObject:@"No Device" forKey:@"msg"];
+
+        [self sendCallBackJsonData:message command:command];       
+    }
+
+
+
+}
+- (void) getBottleId:(CDVInvokedUrlCommand*)command{
+
+
+    NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    [message setObject:mac forKey:@"address"];
+
+    BG5 *bgInstance = [self getBG5withMac:mac];
+
+
+     if(bgInstance!=nil){
+
+
+    [bgInstance commandGetbottleID:^(NSNumber *bottleID) {
+
+         [message setObject:@"bottleid" forKey:@"msg"];
+
+         [message setObject:bottleID forKey:@"bottleid"];
+
+
+         [self sendCallBackJsonData:message command:command];
+
+        
+    } DisposeBGErrorBlock:^(NSNumber *errorID) {
+        
+    }];
+
+     }else{
+
+        [message setObject:@"No Device" forKey:@"msg"];
+
+        [self sendCallBackJsonData:message command:command];       
+    }
+
+
+
+
+}
+
+- (void) setBottleMessage:(CDVInvokedUrlCommand*)command{
+
+
+     NSString* mac = [command.arguments objectAtIndex:0];
+
+     NSNumber* qr = [command.arguments objectAtIndex:1];
+
+     NSNumber* leftNum = [command.arguments objectAtIndex:2];
+
+     NSNumber* timeTs = [command.arguments objectAtIndex:3];
+
+
+     NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    BG5 *bgInstance = [self getBG5withMac:mac];
+
+
+
+
+}
+- (void) getBottleMessage:(CDVInvokedUrlCommand*)command{
+
+
+     NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    [message setObject:mac forKey:@"address"];
+
+    BG5 *bgInstance = [self getBG5withMac:mac];
+
+
+     if(bgInstance!=nil){
+
+
+     [bgInstance commandReadBGCodeDic:^(NSDictionary *codeDic) {
+        
+        NSNumber *ShiTnum=[codeDic valueForKey:@"Strips"];
+        NSNumber*bottleID=[codeDic valueForKey:@"bottleID"];
+        NSString*date=[codeDic valueForKey:@"Date"];
+        
+         [message setObject:@"code" forKey:@"msg"];
+
+         [message setObject:bottleID forKey:@"bottleid"];
+
+         [message setObject:ShiTnum forKey:@"leftnum"];
+
+         [message setObject:date forKey:@"expiretime"];
+
+         [self sendCallBackJsonData:message command:command];  
+        
+        
+        
+    } DisposeBGErrorBlock:^(NSNumber *errorID) {
+        
+    }];
+
+
+     }else{
+
+        [message setObject:@"No Device" forKey:@"msg"];
+
+        [self sendCallBackJsonData:message command:command];       
+    }
+
+}
+
+- (void) getOfflineData:(CDVInvokedUrlCommand*)command{
+
+    NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    [message setObject:mac forKey:@"address"];
+
+    BG5 *bgInstance = [self getBG5withMac:mac];
+
+
+     if(bgInstance!=nil){
+
+
+
+     [self commandTransferMemorryData:^(NSNumber *dataCount) {
+        
+    } DisposeBGHistoryData:^(NSDictionary *historyDataDic) {
+
+
+         [message setObject:@"value" forKey:@"msg"];
+
+        [message setObject:historyDataDic forKey:@"history"];
+
+        [self sendCallBackJsonData:message command:command];  
+
+
+        
+    } DisposeBGErrorBlock:^(NSNumber *errorID) {
+        
+    }];
+
+     }else{
+
+        [message setObject:@"No Device" forKey:@"msg"];
+
+        [self sendCallBackJsonData:message command:command];       
+    }
+
+
+}
+
+- (void) getBattery:(CDVInvokedUrlCommand*)command{
+
+
+    NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+
+    [message setObject:@"No Battery" forKey:@"msg"];
+
+    [message setObject:mac forKey:@"address"];
+
+
+    [self sendCallBackJsonData:message command:command];  
+
+}
+
+- (void) deleteOfflineData:(CDVInvokedUrlCommand*)command{
+
+      NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    [message setObject:mac forKey:@"address"];
+
+    BG5 *bgInstance = [self getBG5withMac:mac];
+
+
+     if(bgInstance!=nil){
+
+
+
+     [self commandDeleteMemorryData:^(BOOL deleteOk) {
+
+     [message setObject:@"deleteOfflineData" forKey:@"msg"];
+
+
+     [self sendCallBackJsonData:message command:command];
+        
+    }];
+
+      }else{
+
+        [message setObject:@"No Device" forKey:@"msg"];
+
+        [self sendCallBackJsonData:message command:command];       
+    }
+
+
+
+
+}
+- (void) holdLink:(CDVInvokedUrlCommand*)command{
+
+     NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    [message setObject:mac forKey:@"address"];
+
+    BG5 *bgInstance = [self getBG5withMac:mac];
+
+
+     if(bgInstance!=nil){
+
+     [self commandKeepConnectDisposeBGErrorBlock:^(NSNumber *errorID) {
+        
+    }];
+
+      [message setObject:@"holdLink" forKey:@"msg"];
+
+
+     [self sendCallBackJsonData:message command:command];
+
+     }else{
+
+        [message setObject:@"No Device" forKey:@"msg"];
+
+        [self sendCallBackJsonData:message command:command];       
+    }
+
+
+
+}
+- (void) startMeasure:(CDVInvokedUrlCommand*)command{
+
+      NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    [message setObject:mac forKey:@"address"];
+
+    BG5 *bgInstance = [self getBG5withMac:mac];
+
+
+     if(bgInstance!=nil){
 
 
         [bgInstance commandCreateBGtestModel:BGMeasureMode_Blood DisposeBGStripInBlock:^(BOOL stripIn) {
@@ -154,6 +510,30 @@ NSString* theCallbackId;
 
         [self sendCallBackJsonData:message command:command];       
     }
+
+}
+
+- (void) disConnectDevice:(CDVInvokedUrlCommand*)command{
+
+     NSString* mac = [command.arguments objectAtIndex:0];
+
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    [message setObject:@"disconnect" forKey:@"msg"];
+
+    [message setObject:mac forKey:@"mac"];
+
+    [message setObject:@"BP5" forKey:@"type"];
+
+    [self sendCallBackJsonData:message command:command];
+
+
+}
+- (void) setDisconnectCallback:(CDVInvokedUrlCommand*)command{
+
+
+     NSString* mac = [command.arguments objectAtIndex:0];
+
 
 }
 
