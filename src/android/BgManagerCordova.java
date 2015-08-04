@@ -251,7 +251,7 @@ public class BgManagerCordova extends CordovaPlugin {
                 try {
                     o = new JSONObject();
                     o.put("msg", "bottleid");
-                    o.put("mac", mac);
+                    o.put("address", mac);
                     o.put("bottleid", bottleid + "");
                 } catch (Exception e) {                   
                     e.printStackTrace();
