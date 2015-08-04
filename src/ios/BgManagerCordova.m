@@ -140,7 +140,7 @@ NSString* theCallbackId;
 
     NSString* mac = [command.arguments objectAtIndex:0];
 
-    NSString* unit = [command.arguments objectAtIndex:1];
+    NSNumber* unit = [command.arguments objectAtIndex:1];
 
     NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
 
@@ -152,6 +152,7 @@ NSString* theCallbackId;
 
         [message setObject:mac forKey:@"address"];
 
+        [message setObject:@"setUnit" forKey:@"msg"];
 
         [bgInstance commandInitBGSetUnit:unit DisposeBGErrorBlock:^(NSNumber *errorID) {
 
@@ -161,22 +162,7 @@ NSString* theCallbackId;
 
          [self sendCallBackJsonData:message command:command];
 
-        // [bgInstance commandInitBGSetUnit:unit BGUserID:@"" clientID:@"" clientSecret:@"" Authentication:^(UserAuthenResult result) {
-            
-        // } DisposeBGBottleID:^(NSNumber *bottleID) {
 
-
-        //      [message setObject:@"bottleid" forKey:@"msg"];
-
-        //      [message setObject:bottleID forKey:@"bottleid"];
-
-
-        //      [self sendCallBackJsonData:message command:command];
-
-            
-        // } DisposeBGErrorBlock:^(NSNumber *errorID) {
-            
-        // }];
     }else{
 
         [message setObject:@"No Device" forKey:@"msg"];
@@ -204,6 +190,8 @@ NSString* theCallbackId;
      [bgInstance commandSendBottleID:bottleID DisposeBGSendBottleIDBlock:^(BOOL sendOk) {
 
         [message setObject:mac forKey:@"address"];
+
+        [message setObject:@"setBottleId" forKey:@"msg"];
 
         [self sendCallBackJsonData:message command:command];
 
@@ -274,12 +262,40 @@ NSString* theCallbackId;
 
      NSNumber* leftNum = [command.arguments objectAtIndex:2];
 
-     NSNumber* timeTs = [command.arguments objectAtIndex:3];
+     NSString* timeTs = [command.arguments objectAtIndex:3];
 
 
      NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
 
+     [message setObject:mac forKey:@"address"];
+
     BG5 *bgInstance = [self getBG5withMac:mac];
+
+
+     if(bgInstance!=nil){
+
+
+
+     [bgInstance commandSendBGCodeString:qr validDate:timeTs remainNum:leftnum DisposeBGSendCodeBlock:^(BOOL sendOk) {
+
+
+         [message setObject:@"setBottleMessage" forKey:@"msg"];
+
+         [self sendCallBackJsonData:message command:command];
+        
+    } DisposeBGStartModel:^(BGOpenMode mode) {
+        
+    } DisposeBGErrorBlock:^(NSNumber *errorID) {
+        
+    }];
+
+
+     }else{
+
+        [message setObject:@"No Device" forKey:@"msg"];
+
+        [self sendCallBackJsonData:message command:command];       
+    }
 
 
 
