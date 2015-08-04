@@ -347,7 +347,7 @@ NSString* theCallbackId;
 
 
 
-     [self commandTransferMemorryData:^(NSNumber *dataCount) {
+     [bgInstance commandTransferMemorryData:^(NSNumber *dataCount) {
         
     } DisposeBGHistoryData:^(NSDictionary *historyDataDic) {
 
@@ -406,7 +406,7 @@ NSString* theCallbackId;
 
 
 
-     [self commandDeleteMemorryData:^(BOOL deleteOk) {
+     [bgInstance commandDeleteMemorryData:^(BOOL deleteOk) {
 
      [message setObject:@"deleteOfflineData" forKey:@"msg"];
 
@@ -439,7 +439,7 @@ NSString* theCallbackId;
 
      if(bgInstance!=nil){
 
-     [self commandKeepConnectDisposeBGErrorBlock:^(NSNumber *errorID) {
+     [bgInstance commandKeepConnectDisposeBGErrorBlock:^(NSNumber *errorID) {
         
     }];
 
