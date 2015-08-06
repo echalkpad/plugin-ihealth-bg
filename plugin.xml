@@ -40,6 +40,13 @@
       </feature>
     </config-file>
 
+     <config-file target="*-Info.plist" parent="UISupportedExternalAccessoryProtocols"> 
+      <array> 
+        <string>com.jiuan.BGV30</string> 
+        <string>com.jiuan.BGV31</string> 
+      </array> 
+    </config-file> 
+
     <header-file src="src/ios/User.h"/>
     <header-file src="src/ios/BG5.h"/>
     <header-file src="src/ios/BG5Controller.h"/>

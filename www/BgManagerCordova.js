@@ -25,16 +25,16 @@ BgManagerCordova.prototype.getBattery = function(mac, successCallback, errorCall
     cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBattery", [mac]);
 };  
 
-BgManagerCordova.prototype.setBottleId = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleId", [mac]);
+BgManagerCordova.prototype.setBottleId = function(mac, successCallback, errorCallback, bottleId) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleId", [mac, bottleId]);
 }; 
 
 BgManagerCordova.prototype.getBottleId = function(mac, successCallback, errorCallback) {  
     cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBottleId", [mac]);
 };
 
-BgManagerCordova.prototype.setBottleMessage = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleMessage", [mac]);
+BgManagerCordova.prototype.setBottleMessage = function(mac, successCallback, errorCallback, qr, leftNum, time) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleMessage", [mac, qr, leftNum, time]);
 }; 
 
 BgManagerCordova.prototype.getBottleMessage = function(mac, successCallback, errorCallback) {  
