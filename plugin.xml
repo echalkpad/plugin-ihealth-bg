@@ -35,13 +35,35 @@
   <platform name="ios">
     
     <config-file target="config.xml" parent="/widget">
-      <feature name="Hello">
-        <param name="ios-package" value="HWPHello" />
+      <feature name="BgManagerCordova">
+        <param name="ios-package" value="BgManagerCordova" />
       </feature>
     </config-file>
 
-    <header-file src="src/ios/HWPHello.h" target-dir="HelloPlugin"/>
-    <source-file src="src/ios/HWPHello.m" target-dir="HelloPlugin"/>
+     <config-file target="*-Info.plist" parent="UISupportedExternalAccessoryProtocols"> 
+      <array> 
+        <string>com.jiuan.BGV30</string> 
+        <string>com.jiuan.BGV31</string> 
+      </array> 
+    </config-file> 
+
+    <header-file src="src/ios/User.h"/>
+    <header-file src="src/ios/BG5.h"/>
+    <header-file src="src/ios/BG5Controller.h"/>
+    <header-file src="src/ios/AudioBG1Communication.h"/>
+    <header-file src="src/ios/BGHeader.h"/>
+    <header-file src="src/ios/BGMacroFile.h"/>
+    <header-file src="src/ios/BgManagerCordova.h"/>
+    <source-file src="src/ios/BgManagerCordova.m"/>
+    <source-file src="src/ios/iHealthBGSDK.a" framework="true" />
+        <framework src="CoreGraphics.framework" />
+        <framework src="Foundation.framework" />
+        <framework src="ExternalAccessory.framework" />
+        <framework src="AudioToolbox.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="Accelerate.framework" />
+        <framework src="CoreBluetooth.framework" />
+        <framework src="UIKit.framework" />
   </platform>
 
   <platform name="wp7">
