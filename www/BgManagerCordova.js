@@ -33,11 +33,8 @@ BgManagerCordova.prototype.getBottleId = function(mac, successCallback, errorCal
     cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBottleId", [mac]);
 };
 
-<<<<<<< HEAD
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleMessage", [mac, leftNum, timeTs]);
 BgManagerCordova.prototype.setBottleMessage = function(mac, successCallback, errorCallback, qr, leftNum, time) {  
     cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleMessage", [mac, qr, leftNum, time]);
->>>>>>> origin/master
 }; 
 
 BgManagerCordova.prototype.getBottleMessage = function(mac, successCallback, errorCallback) {  
