@@ -4,6 +4,9 @@
 
 
 - (void) sendCallBackJsonData:(NSDictionary*)dataDic command:(CDVInvokedUrlCommand*)command;
+
+- (void) sendCallBackSomeJsonData:(NSDictionary*)dataDic commandID:(NSString*)commandID;
+
 - (BG5*) getBG5withMac:(NSString *)mac;
 
 - (void) startDiscovery:(CDVInvokedUrlCommand*)command;

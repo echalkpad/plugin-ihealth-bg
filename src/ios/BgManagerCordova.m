@@ -3,7 +3,7 @@
 @implementation BgManagerCordova{
     
     BG5Controller *bgController;
-
+     NSMutableDictionary *callbackList;
 }
 
 NSString* theCallbackId;
@@ -22,6 +22,10 @@ NSString* theCallbackId;
     [super pluginInitialize];
 
     bgController = [BG5Controller shareIHBg5Controller];
+
+     callbackList = [[NSMutableDictionary alloc]init];
+
+       [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deviceDisconnected:) name:@"BG5DisConnectNoti" object:nil];
 
 }
 
@@ -51,6 +55,25 @@ NSString* theCallbackId;
     [pluginResult setKeepCallbackAsBool:YES];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+
+    
+}
+
+-(void)sendCallBackSomeJsonData:(NSDictionary*)dataDic commandID:(NSString*)commandID{
+
+    CDVPluginResult* pluginResult = nil;
+    
+    NSError *error = Nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dataDic options:(NSJSONWritingPrettyPrinted) error:&error];
+
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: jsonString];
+
+    [pluginResult setKeepCallbackAsBool:YES];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:commandID];
 
     
 }
@@ -105,19 +128,31 @@ NSString* theCallbackId;
 
     NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
 
-    for (int i = 0; i < bgArray.count; i++)
+
+
+    if (bpDeviceArray.count>0)
     {
+
+           for (int i = 0; i < bgArray.count; i++)
+         {
         
-    BG5*myBg5=[bgArray objectAtIndex:i];
+         BG5*myBg5=[bgArray objectAtIndex:i];
         
        
-    [message setObject:@"discovery doing" forKey:@"msg"];
-    [message setObject:myBg5.serialNumber forKey:@"address"];
-    [message setObject:@"BG5" forKey:@"name"];
+         [message setObject:@"discovery doing" forKey:@"msg"];
+         [message setObject:myBg5.serialNumber forKey:@"address"];
+         [message setObject:@"BG5" forKey:@"name"];
 
 
-    [self sendCallBackJsonData:message command:command];
+         [self sendCallBackJsonData:message command:command];
 
+         }
+
+     }else{
+
+         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deviceConnected:) name:@"BG5ConnectNoti" object:nil];
+
+         [callbackList setObject:command.callbackId forKey: @"deviceConnected"];
     }
 
 }
@@ -155,6 +190,30 @@ NSString* theCallbackId;
         [message setObject:@"setUnit" forKey:@"msg"];
 
         [bgInstance commandInitBGSetUnit:unit DisposeBGErrorBlock:^(NSNumber *errorID) {
+
+
+            if ([errorID intValue]==100) {
+
+
+                 [message setObject:@"disconnect" forKey:@"msg"];
+
+                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+
+                 [self sendCallBackJsonData:message command:command];
+
+           }else{
+                 
+                 [message removeAllObjects];
+                 
+                 [message setObject:@"error" forKey:@"msg"];
+                 
+                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 
+                 [self sendCallBackJsonData:message command:command];
+             
+             
+             }
+
 
 
         
@@ -197,6 +256,28 @@ NSString* theCallbackId;
 
         
     } DisposeBGErrorBlock:^(NSNumber *errorID) {
+
+         if ([errorID intValue]==100) {
+
+
+                 [message setObject:@"disconnect" forKey:@"msg"];
+
+                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+
+                 [self sendCallBackJsonData:message command:command];
+
+           }else{
+                 
+                 [message removeAllObjects];
+                 
+                 [message setObject:@"error" forKey:@"msg"];
+                 
+                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 
+                 [self sendCallBackJsonData:message command:command];
+             
+             
+             }
         
     }];
 
@@ -238,6 +319,29 @@ NSString* theCallbackId;
 
         
     } DisposeBGErrorBlock:^(NSNumber *errorID) {
+
+       if ([errorID intValue]==100) {
+
+
+                 [message setObject:@"disconnect" forKey:@"msg"];
+
+                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+
+                 [self sendCallBackJsonData:message command:command];
+
+           }else{
+                 
+                 [message removeAllObjects];
+                 
+                 [message setObject:@"error" forKey:@"msg"];
+                 
+                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 
+                 [self sendCallBackJsonData:message command:command];
+             
+             
+             }
+
         
     }];
 
@@ -286,6 +390,28 @@ NSString* theCallbackId;
     } DisposeBGStartModel:^(BGOpenMode mode) {
         
     } DisposeBGErrorBlock:^(NSNumber *errorID) {
+
+         if ([errorID intValue]==100) {
+
+
+                 [message setObject:@"disconnect" forKey:@"msg"];
+
+                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+
+                 [self sendCallBackJsonData:message command:command];
+
+           }else{
+                 
+                 [message removeAllObjects];
+                 
+                 [message setObject:@"error" forKey:@"msg"];
+                 
+                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 
+                 [self sendCallBackJsonData:message command:command];
+             
+             
+             }
         
     }];
 
@@ -335,6 +461,29 @@ NSString* theCallbackId;
         
         
     } DisposeBGErrorBlock:^(NSNumber *errorID) {
+
+
+         if ([errorID intValue]==100) {
+
+
+                 [message setObject:@"disconnect" forKey:@"msg"];
+
+                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+
+                 [self sendCallBackJsonData:message command:command];
+
+           }else{
+                 
+                 [message removeAllObjects];
+                 
+                 [message setObject:@"error" forKey:@"msg"];
+                 
+                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 
+                 [self sendCallBackJsonData:message command:command];
+             
+             
+             }
         
     }];
 
@@ -377,6 +526,29 @@ NSString* theCallbackId;
 
         
     } DisposeBGErrorBlock:^(NSNumber *errorID) {
+
+
+         if ([errorID intValue]==100) {
+
+
+                 [message setObject:@"disconnect" forKey:@"msg"];
+
+                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+
+                 [self sendCallBackJsonData:message command:command];
+
+           }else{
+                 
+                 [message removeAllObjects];
+                 
+                 [message setObject:@"error" forKey:@"msg"];
+                 
+                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 
+                 [self sendCallBackJsonData:message command:command];
+             
+             
+             }
         
     }];
 
@@ -456,6 +628,28 @@ NSString* theCallbackId;
      if(bgInstance!=nil){
 
      [bgInstance commandKeepConnectDisposeBGErrorBlock:^(NSNumber *errorID) {
+
+         if ([errorID intValue]==100) {
+
+
+                 [message setObject:@"disconnect" forKey:@"msg"];
+
+                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+
+                 [self sendCallBackJsonData:message command:command];
+
+           }else{
+                 
+                 [message removeAllObjects];
+                 
+                 [message setObject:@"error" forKey:@"msg"];
+                 
+                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 
+                 [self sendCallBackJsonData:message command:command];
+             
+             
+             }
         
     }];
 
@@ -514,9 +708,27 @@ NSString* theCallbackId;
         
          } DisposeBGErrorBlock:^(NSNumber *errorID) {
 
-             [message setObject:@"strip out" forKey:@"msg"];
+              if ([errorID intValue]==100) {
 
-             [self sendCallBackJsonData:message command:command];
+
+                 [message setObject:@"disconnect" forKey:@"msg"];
+
+                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+
+                 [self sendCallBackJsonData:message command:command];
+
+           }else{
+                 
+                 [message removeAllObjects];
+                 
+                 [message setObject:@"error" forKey:@"msg"];
+                 
+                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 
+                 [self sendCallBackJsonData:message command:command];
+             
+             
+             }
         
          }];
 
@@ -548,7 +760,7 @@ NSString* theCallbackId;
 - (void) setDisconnectCallback:(CDVInvokedUrlCommand*)command{
 
 
-     NSString* mac = [command.arguments objectAtIndex:0];
+      [callbackList setObject:command.callbackId forKey: @"deviceDicConnected"];
 
 
 }
