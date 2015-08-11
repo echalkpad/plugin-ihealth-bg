@@ -114,6 +114,46 @@ NSString* theCallbackId;
 
 }
 
+-(void)deviceConnected:(NSNotification *)tempNoti{
+
+    NSDictionary *infoDic = [tempNoti userInfo];
+
+     NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    NSString *serialNumber = [infoDic objectForKey:@"SerialNumber"];
+
+     [message setObject:@"discovery doing" forKey:@"msg"];
+     [message setObject:serialNumber forKey:@"address"];
+     [message setObject:[infoDic valueForKey:@"FirmwareVersion"] forKey:@"FirmwareVersion"];
+     [message setObject:[infoDic valueForKey:@"HardwareVersion"] forKey:@"HardwareVersion"];
+     [message setObject:[infoDic valueForKey:@"ModelNumber"]  forKey:@"ModelNumber"];
+     [message setObject:[infoDic valueForKey:@"DeviceName"]  forKey:@"name"];
+     [message setObject:[infoDic valueForKey:@"ProtocolString"]  forKey:@"ProtocolString"];
+
+    [self sendCallBackSomeJsonData:message commandID:[callbackList valueForKey:@"deviceConnected"]];
+
+}
+
+
+-(void)deviceDisconnected:(NSNotification *)tempNoti{
+
+
+     NSDictionary *infoDic = [tempNoti userInfo];
+
+     NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+
+    NSString *serialNumber = [infoDic objectForKey:@"SerialNumber"];
+
+     [message setObject:@"disconnect" forKey:@"msg"];
+
+    [message setObject:serialNumber forKey:@"mac"];
+
+    [message setObject:@"BG5" forKey:@"type"];
+
+    [self sendCallBackSomeJsonData:message commandID:[callbackList valueForKey:@"deviceDicConnected"]];
+    
+}
+
 
 #pragma mark -
 #pragma mark some Methods
@@ -130,7 +170,7 @@ NSString* theCallbackId;
 
 
 
-    if (bpDeviceArray.count>0)
+    if (bgArray.count>0)
     {
 
            for (int i = 0; i < bgArray.count; i++)
@@ -197,7 +237,7 @@ NSString* theCallbackId;
 
                  [message setObject:@"disconnect" forKey:@"msg"];
 
-                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+                 [message setObject:bgInstance.serialNumber forKey:@"mac"];
 
                  [self sendCallBackJsonData:message command:command];
 
@@ -207,7 +247,7 @@ NSString* theCallbackId;
                  
                  [message setObject:@"error" forKey:@"msg"];
                  
-                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 [message setObject:errorID forKey:@"errorID"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -262,7 +302,7 @@ NSString* theCallbackId;
 
                  [message setObject:@"disconnect" forKey:@"msg"];
 
-                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+                 [message setObject:bgInstance.serialNumber forKey:@"mac"];
 
                  [self sendCallBackJsonData:message command:command];
 
@@ -272,7 +312,7 @@ NSString* theCallbackId;
                  
                  [message setObject:@"error" forKey:@"msg"];
                  
-                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 [message setObject:errorID forKey:@"errorID"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -325,7 +365,7 @@ NSString* theCallbackId;
 
                  [message setObject:@"disconnect" forKey:@"msg"];
 
-                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+                 [message setObject:bgInstance.serialNumber forKey:@"mac"];
 
                  [self sendCallBackJsonData:message command:command];
 
@@ -335,7 +375,7 @@ NSString* theCallbackId;
                  
                  [message setObject:@"error" forKey:@"msg"];
                  
-                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 [message setObject:errorID forKey:@"errorID"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -396,7 +436,7 @@ NSString* theCallbackId;
 
                  [message setObject:@"disconnect" forKey:@"msg"];
 
-                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+                 [message setObject:bgInstance.serialNumber forKey:@"mac"];
 
                  [self sendCallBackJsonData:message command:command];
 
@@ -406,7 +446,7 @@ NSString* theCallbackId;
                  
                  [message setObject:@"error" forKey:@"msg"];
                  
-                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 [message setObject:errorID forKey:@"errorID"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -463,12 +503,12 @@ NSString* theCallbackId;
     } DisposeBGErrorBlock:^(NSNumber *errorID) {
 
 
-         if ([errorID intValue]==100) {
+        if ([errorID intValue]==100) {
 
 
                  [message setObject:@"disconnect" forKey:@"msg"];
 
-                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+                 [message setObject:bgInstance.serialNumber forKey:@"mac"];
 
                  [self sendCallBackJsonData:message command:command];
 
@@ -478,7 +518,7 @@ NSString* theCallbackId;
                  
                  [message setObject:@"error" forKey:@"msg"];
                  
-                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 [message setObject:errorID forKey:@"errorID"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -533,7 +573,7 @@ NSString* theCallbackId;
 
                  [message setObject:@"disconnect" forKey:@"msg"];
 
-                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+                 [message setObject:bgInstance.serialNumber forKey:@"mac"];
 
                  [self sendCallBackJsonData:message command:command];
 
@@ -543,7 +583,7 @@ NSString* theCallbackId;
                  
                  [message setObject:@"error" forKey:@"msg"];
                  
-                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 [message setObject:errorID forKey:@"errorID"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -634,7 +674,7 @@ NSString* theCallbackId;
 
                  [message setObject:@"disconnect" forKey:@"msg"];
 
-                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+                 [message setObject:bgInstance.serialNumber forKey:@"mac"];
 
                  [self sendCallBackJsonData:message command:command];
 
@@ -644,7 +684,7 @@ NSString* theCallbackId;
                  
                  [message setObject:@"error" forKey:@"msg"];
                  
-                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 [message setObject:errorID forKey:@"errorID"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -713,7 +753,7 @@ NSString* theCallbackId;
 
                  [message setObject:@"disconnect" forKey:@"msg"];
 
-                 [message setObject:bpInstance.serialNumber forKey:@"mac"];
+                 [message setObject:bgInstance.serialNumber forKey:@"mac"];
 
                  [self sendCallBackJsonData:message command:command];
 
@@ -723,7 +763,7 @@ NSString* theCallbackId;
                  
                  [message setObject:@"error" forKey:@"msg"];
                  
-                 [message setObject:[NSNumber numberWithInt:errorID] forKey:@"errorID"];
+                 [message setObject:errorID forKey:@"errorID"];
                  
                  [self sendCallBackJsonData:message command:command];
              
