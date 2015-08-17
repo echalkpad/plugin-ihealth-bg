@@ -248,6 +248,10 @@ NSString* theCallbackId;
                  [message setObject:@"error" forKey:@"msg"];
                  
                  [message setObject:errorID forKey:@"errorID"];
+
+                 [message setObject:@"BG" forKey:@"ProductType"];
+
+                 [message setObject:@"BG5" forKey:@"ProductModel"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -313,6 +317,10 @@ NSString* theCallbackId;
                  [message setObject:@"error" forKey:@"msg"];
                  
                  [message setObject:errorID forKey:@"errorID"];
+
+                  [message setObject:@"BG" forKey:@"ProductType"];
+
+                 [message setObject:@"BG5" forKey:@"ProductModel"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -376,6 +384,10 @@ NSString* theCallbackId;
                  [message setObject:@"error" forKey:@"msg"];
                  
                  [message setObject:errorID forKey:@"errorID"];
+
+                  [message setObject:@"BG" forKey:@"ProductType"];
+
+                 [message setObject:@"BG5" forKey:@"ProductModel"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -447,6 +459,10 @@ NSString* theCallbackId;
                  [message setObject:@"error" forKey:@"msg"];
                  
                  [message setObject:errorID forKey:@"errorID"];
+
+                  [message setObject:@"BG" forKey:@"ProductType"];
+
+                 [message setObject:@"BG5" forKey:@"ProductModel"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -519,6 +535,10 @@ NSString* theCallbackId;
                  [message setObject:@"error" forKey:@"msg"];
                  
                  [message setObject:errorID forKey:@"errorID"];
+
+                  [message setObject:@"BG" forKey:@"ProductType"];
+
+                 [message setObject:@"BG5" forKey:@"ProductModel"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -584,6 +604,10 @@ NSString* theCallbackId;
                  [message setObject:@"error" forKey:@"msg"];
                  
                  [message setObject:errorID forKey:@"errorID"];
+
+                  [message setObject:@"BG" forKey:@"ProductType"];
+
+                 [message setObject:@"BG5" forKey:@"ProductModel"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -685,6 +709,10 @@ NSString* theCallbackId;
                  [message setObject:@"error" forKey:@"msg"];
                  
                  [message setObject:errorID forKey:@"errorID"];
+
+                  [message setObject:@"BG" forKey:@"ProductType"];
+
+                 [message setObject:@"BG5" forKey:@"ProductModel"];
                  
                  [self sendCallBackJsonData:message command:command];
              
@@ -764,6 +792,10 @@ NSString* theCallbackId;
                  [message setObject:@"error" forKey:@"msg"];
                  
                  [message setObject:errorID forKey:@"errorID"];
+
+                  [message setObject:@"BG" forKey:@"ProductType"];
+
+                 [message setObject:@"BG5" forKey:@"ProductModel"];
                  
                  [self sendCallBackJsonData:message command:command];
              
