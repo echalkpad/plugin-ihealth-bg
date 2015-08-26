@@ -1,64 +1,64 @@
 /*global cordova, module*/
 var BgManagerCordova = function() {};  
   
-BgManagerCordova.prototype.startDiscovery = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "startDiscovery", [mac]);
+BgManagerCordova.prototype.startDiscovery = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "startDiscovery", [appsecret, mac]);
 };
 
-BgManagerCordova.prototype.stopDiscovery = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "stopDiscovery", [mac]);
+BgManagerCordova.prototype.stopDiscovery = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "stopDiscovery", [appsecret, mac]);
 };
 
-BgManagerCordova.prototype.startMeasure = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "startMeasure", [mac]);
+BgManagerCordova.prototype.startMeasure = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "startMeasure", [appsecret, mac]);
 }; 
 
-BgManagerCordova.prototype.connectDevice = function(mac, successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "connectDevice", [mac]);
+BgManagerCordova.prototype.connectDevice = function(successCallback, errorCallback, appsecret, mac) {
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "connectDevice", [appsecret, mac]);
 };
 
-BgManagerCordova.prototype.setUnit = function(mac, successCallback, errorCallback, type) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setUnit", [mac, type]);
+BgManagerCordova.prototype.setUnit = function(successCallback, errorCallback, appsecret, mac, type) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setUnit", [appsecret, mac, type]);
 }; 
 
-BgManagerCordova.prototype.getBattery = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBattery", [mac]);
+BgManagerCordova.prototype.getBattery = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBattery", [appsecret, mac]);
 };  
 
-BgManagerCordova.prototype.setBottleId = function(mac, successCallback, errorCallback, bottleId) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleId", [mac, bottleId]);
+BgManagerCordova.prototype.setBottleId = function(successCallback, errorCallback, appsecret, mac, bottleId) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleId", [appsecret, mac, bottleId]);
 }; 
 
-BgManagerCordova.prototype.getBottleId = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBottleId", [mac]);
+BgManagerCordova.prototype.getBottleId = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBottleId", [appsecret, mac]);
 };
 
-BgManagerCordova.prototype.setBottleMessage = function(mac, successCallback, errorCallback, qr, leftNum, time) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleMessage", [mac, qr, leftNum, time]);
+BgManagerCordova.prototype.setBottleMessage = function(successCallback, errorCallback, appsecret, mac, qr, leftNum, time) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setBottleMessage", [appsecret, mac, qr, leftNum, time]);
 }; 
 
-BgManagerCordova.prototype.getBottleMessage = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBottleMessage", [mac]);
+BgManagerCordova.prototype.getBottleMessage = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getBottleMessage", [appsecret, mac]);
 };
 
-BgManagerCordova.prototype.getOfflineData = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getOfflineData", [mac]);
+BgManagerCordova.prototype.getOfflineData = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "getOfflineData", [appsecret, mac]);
 };
 
-BgManagerCordova.prototype.deleteOfflineData = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "deleteOfflineData", [mac]);
+BgManagerCordova.prototype.deleteOfflineData = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "deleteOfflineData", [appsecret, mac]);
 };
   
-BgManagerCordova.prototype.disConnectDevice = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "disConnectDevice", [mac]);
+BgManagerCordova.prototype.disConnectDevice = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "disConnectDevice", [appsecret, mac]);
 };
 
-BgManagerCordova.prototype.setDisconnectCallback = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setDisconnectCallback", [mac]);
+BgManagerCordova.prototype.setDisconnectCallback = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "setDisconnectCallback", [appsecret, mac]);
 };
 
-BgManagerCordova.prototype.holdLink = function(mac, successCallback, errorCallback) {  
-    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "holdLink", [mac]);
+BgManagerCordova.prototype.holdLink = function(successCallback, errorCallback, appsecret, mac) {  
+    cordova.exec(successCallback, errorCallback, "BgManagerCordova", "holdLink", [appsecret, mac]);
 };
 
 var bgManagerCordova = new BgManagerCordova();  
