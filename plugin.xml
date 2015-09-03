@@ -3,7 +3,7 @@
         id="com.ihealth.plugin.bgmanagercordova"
         version="0.0.1">
 
-  <name>plugin_Bp</name>
+  <name>plugin_Bg</name>
 
   <engines>
     <engine name="cordova" version=">=3.4.0"/>
