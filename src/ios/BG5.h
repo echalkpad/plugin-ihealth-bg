@@ -37,6 +37,10 @@ typedef enum{
     DisposeBGTestModelBlock _disposeBGTestModelBlock;
     DisposeAuthenticationBlock _disposeAuthenticationBlock;
     
+    DisposeBGBlock _disposeBGBlock;
+    
+    DisposeBG5BatteryBlock _disposeBG5BatteryBlock;
+    
     NSString *thirdUserID;
     
     NSString *clientSDKUserName;
@@ -74,15 +78,8 @@ typedef enum{
     disposeBGBottleID, returns the ID which is stored in the BG meter, to verify if the strip has been used is from the same bottle of the registered one. if not, the app will notify the user need scan the new bottle, if yes, the app will get the number of left strips and expire date.
     disposeBGErrorBlock, error code, please refer to the error list.
  */
-//-(void)commandInitBGSetUnit:(BGUnit )unitState BGUserID:(NSString*)userID clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret Authentication:(DisposeAuthenticationBlock)disposeAuthenticationBlock DisposeBGBottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+-(void)commandInitBGSetUnit:(BGUnit )unitState BGUserID:(NSString*)userID clientID:(NSString *)clientID clientSecret:(NSString *)clientSecret Authentication:(DisposeAuthenticationBlock)disposeAuthenticationBlock DisposeBGBottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 
--(void)commandInitBGSetUnit:(NSNumber*)unitState DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
-
-
--(void)commandGetbottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
-
-
--(void)commandSendBottleID:(NSNumber*)BottleID DisposeBGSendBottleIDBlock:(DisposeBGSendBottleIDBlock)disposeBGSendBottleIDBlock DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 //History records
 /*
  Return parameter:
@@ -108,9 +105,6 @@ typedef enum{
  */
 -(void)commandReadBGCodeDic:(DisposeBGCodeDic)disposeBGCodeDic DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 
-
--(void)commandKeepConnectDisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
-
 //Send code
 /*
  Import parameters:
@@ -123,7 +117,7 @@ typedef enum{
     disposeBGStartModel, the boot mode of the BG meter, BGOpenMode_Strip means booting the meter by sliding the strip, BGOpenMode_Hand means booting the meter by pressing the on/off button. interface (6) will be called by the first mode, interface (7) will be called by the second mode.
     disposeBGErrorBlock，error codes.
  */
--(void)commandSendBGCodeString:(NSString*)encodeString validDate:(NSString*)date remainNum:(NSNumber*)num DisposeBGSendCodeBlock:(DisposeBGSendCodeBlock)disposeBGSendCodeBlock DisposeBGStartModel:(DisposeBGStartModel)disposeBGStartModel DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+-(void)commandSendBGCodeString:(NSString*)encodeString bottleID:(NSNumber *)bottleID validDate:(NSDate*)date remainNum:(NSNumber*)num DisposeBGSendCodeBlock:(DisposeBGSendCodeBlock)disposeBGSendCodeBlock DisposeBGStartModel:(DisposeBGStartModel)disposeBGStartModel DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
 
 //Strip-Sliding booting mode
 /*
@@ -160,5 +154,37 @@ typedef enum{
     StripNum，the number of strips
  */
 -(NSDictionary *)codeStripStrAnalysis:(NSString *)encodeString;
+
+
+//Plugin 方法
+
+-(void)commandInitBGWithAppSecret:(NSString*)AppSecret SetUnit:(NSNumber*)unitState DisposeBGBlock:(DisposeBGBlock)disposeBGBlock DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandGetbottleIDWithAppSecret:(NSString*)AppSecret bottleID:(DisposeBGBottleID)disposeBGBottleID DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandSendBottleIDWithAppSecret:(NSString*)AppSecret bottleID:(NSNumber*)BottleID DisposeBGSendBottleIDBlock:(DisposeBGSendBottleIDBlock)disposeBGSendBottleIDBlock DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandTransferMemorryDataWithAppSecret:(NSString*)AppSecret BGDataCount:(DisposeBGDataCount)disposeBGDataCount DisposeBGHistoryData:(DisposeBGHistoryData)disposeBGHistoryData DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+-(void)commandDeleteMemorryDataWithAppSecret:(NSString*)AppSecret DeleteData:(DisposeBGDeleteData)DisposeBGDeleteData DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandReadBGCodeDicWithAppSecret:(NSString*)AppSecret BGCodeDic:(DisposeBGCodeDic)disposeBGCodeDic DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandKeepConnectWithAppSecret:(NSString*)AppSecret DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+
+-(void)commandSendBGCodeStringWithAppSecret:(NSString*)AppSecret encodeString:(NSString*)encodeString validDate:(NSString*)date remainNum:(NSNumber*)num DisposeBGSendCodeBlock:(DisposeBGSendCodeBlock)disposeBGSendCodeBlock DisposeBGStartModel:(DisposeBGStartModel)disposeBGStartModel DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+-(void)commandCreateBGtestWithAppSecret:(NSString*)AppSecret StripInBlock:(DisposeBGStripInBlock)disposeBGStripInBlock DisposeBGBloodBlock:(DisposeBGBloodBlock)disposeBGBloodBlock DisposeBGResultBlock:(DisposeBGResultBlock)disposeBGResultBlock  DisposeBGTestModelBlock:(DisposeBGTestModelBlock)disposeBGTestModelBlock DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+-(void)commandCreateBGWithAppSecret:(NSString*)AppSecret testModel:(BGMeasureMode)testMode DisposeBGStripInBlock:(DisposeBGStripInBlock)disposeBGStripInBlock DisposeBGBloodBlock:(DisposeBGBloodBlock)disposeBGBloodBlock DisposeBGResultBlock:(DisposeBGResultBlock)disposeBGResultBlock DisposeBGTestModelBlock:(DisposeBGTestModelBlock)disposeBGTestModelBlock  DisposeBGErrorBlock:(DisposeBGErrorBlock)disposeBGErrorBlock;
+
+-(void)commandQueryBatteryWithAppSecret:(NSString*)AppSecret DisposeBatteryBlock:(DisposeBG5BatteryBlock)disposeBatteryBlock DisposeErrorBlock:(DisposeBGErrorBlock)disposeErrorBlock;
+
 
 @end

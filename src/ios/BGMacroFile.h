@@ -64,6 +64,11 @@ typedef void (^DisposeDiscoverBGBlock)(BOOL result);
 //
 typedef void (^DisposeConnectBGBlock)(BOOL result);
 
+typedef void (^DisposeBGBlock)();
+
+//电池电量
+typedef void (^DisposeBG5BatteryBlock)(NSNumber* energy);
+
 typedef void (^DisposeAuthenticationBlock)(UserAuthenResult result);//the result of userID verification
 
 

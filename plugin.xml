@@ -50,12 +50,11 @@
     <header-file src="src/ios/User.h"/>
     <header-file src="src/ios/BG5.h"/>
     <header-file src="src/ios/BG5Controller.h"/>
-    <header-file src="src/ios/AudioBG1Communication.h"/>
     <header-file src="src/ios/BGHeader.h"/>
     <header-file src="src/ios/BGMacroFile.h"/>
     <header-file src="src/ios/BgManagerCordova.h"/>
     <source-file src="src/ios/BgManagerCordova.m"/>
-    <source-file src="src/ios/iHealthBGSDK.a" framework="true" />
+    <source-file src="src/ios/iHealthSDK.a" framework="true" />
         <framework src="CoreGraphics.framework" />
         <framework src="Foundation.framework" />
         <framework src="ExternalAccessory.framework" />
