@@ -425,7 +425,7 @@ NSString* theCallbackId;
 
          [message setObject:@"bottleID" forKey:@"msg"];
 
-         [message setObject:bottleID forKey:@"bottleid"];
+         [message setObject:bottleID forKey:@"bottleID"];
 
          [self sendCallBackSomeJsonData:message commandID:command.callbackId]; 
         
