@@ -261,9 +261,17 @@ NSString* theCallbackId;
 
      }else{
 
+         [message removeAllObjects];
+                            
          [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-         [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
          [self sendCallBackSomeJsonData:message commandID:command.callbackId];
      }
@@ -318,7 +326,7 @@ NSString* theCallbackId;
 
                  [message setObject:@"BG5" forKey:@"ProductModel"];
                  
-                 [[self sendCallBackSomeJsonData:message commandID:command.callbackId];
+                 [self sendCallBackSomeJsonData:message commandID:command.callbackId];
              
              
              }
@@ -327,9 +335,17 @@ NSString* theCallbackId;
 
     }else{
 
-       [message setObject:@"error" forKey:@"msg"];
+       [message removeAllObjects];
+                            
+         [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];      
     }
@@ -395,9 +411,17 @@ NSString* theCallbackId;
 
      }else{
 
-        [message setObject:@"error" forKey:@"msg"];
+        [message removeAllObjects];
+                            
+         [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];        
     }
@@ -462,9 +486,17 @@ NSString* theCallbackId;
 
      }else{
 
-       [message setObject:@"error" forKey:@"msg"];
+         [message removeAllObjects];
+                            
+         [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];         
     }
@@ -548,9 +580,17 @@ NSString* theCallbackId;
 
      }else{
 
-       [message setObject:@"error" forKey:@"msg"];
+         [message removeAllObjects];
+                            
+         [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];  
 
@@ -626,9 +666,17 @@ NSString* theCallbackId;
 
      }else{
 
-        [message setObject:@"error" forKey:@"msg"];
+         [message removeAllObjects];
+                            
+         [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];        
     }
@@ -652,10 +700,16 @@ NSString* theCallbackId;
 
         [bgInstance commandTransferMemorryDataWithAppSecret:appsecret BGDataCount:^(NSNumber *dataCount) {
 
+            [message setObject:@"historyDataCount" forKey:@"msg"];
+
+            [message setObject:dataCount forKey:@"count"];
+
+            [self sendCallBackSomeJsonData:message commandID:command.callbackId]; 
+
         
         } DisposeBGHistoryData:^(NSDictionary *historyDataDic) {
 
-            [message setObject:@"value" forKey:@"msg"];
+            [message setObject:@"historyData" forKey:@"msg"];
 
             [message setObject:historyDataDic forKey:@"history"];
 
@@ -694,9 +748,17 @@ NSString* theCallbackId;
 
      }else{
 
-        [message setObject:@"error" forKey:@"msg"];
+         [message removeAllObjects];
+                            
+         [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];       
     }
@@ -760,9 +822,17 @@ NSString* theCallbackId;
 
     }else{
 
+          [message removeAllObjects];
+                            
          [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];  
 
@@ -824,9 +894,17 @@ NSString* theCallbackId;
 
     }else{
 
+         [message removeAllObjects];
+                            
          [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];  
 
@@ -891,9 +969,17 @@ NSString* theCallbackId;
 
      }else{
 
-       [message setObject:@"error" forKey:@"msg"];
+        [message removeAllObjects];
+                            
+         [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];       
     }
@@ -905,7 +991,7 @@ NSString* theCallbackId;
 
      NSString* appsecret = [command.arguments objectAtIndex:0];
 
-     NSString* mac = [command.arguments objectAtIndex:0];
+     NSString* mac = [command.arguments objectAtIndex:1];
 
      NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
 
@@ -972,9 +1058,17 @@ NSString* theCallbackId;
 
     }else{
 
-       [message setObject:@"error" forKey:@"msg"];
+         [message removeAllObjects];
+                            
+         [message setObject:@"error" forKey:@"msg"];
+                 
+         [message setObject:@400 forKey:@"errorID"];
 
-       [message setObject:@600 forKey:@"errorID"];
+         [message setObject:mac forKey:@"address"];
+
+         [message setObject:@"BG" forKey:@"ProductType"];
+
+         [message setObject:@"BG5" forKey:@"ProductModel"];
 
        [self sendCallBackSomeJsonData:message commandID:command.callbackId];       
     }
@@ -993,7 +1087,7 @@ NSString* theCallbackId;
 
     [message setObject:@"BG5" forKey:@"type"];
 
-     [self sendCallBackSomeJsonData:message commandID:command.callbackId];  
+    [self sendCallBackSomeJsonData:message commandID:command.callbackId];  
 
 
 }
