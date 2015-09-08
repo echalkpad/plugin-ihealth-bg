@@ -15,15 +15,15 @@ This is a cordova plugin for ihealth bg5.
     
 
 
-###BG
+#BG
 
-#(1)startDiscovery
+####(1)startDiscovery
 function(successCallback, errorCallback, appsecret, mac)
 
 CallBack：
 
 {"msg":" discovery doing","address":"8CDE52143F1E","name":"BG5"}
-#(2) stopDiscovery
+####(2) stopDiscovery
 function(successCallback, errorCallback, appsecret, mac)
 
 ios Without this feature
@@ -31,37 +31,37 @@ ios Without this feature
 CallBack：
 
 {"msg":" discovery done "}
-#(3) connectDevice
+####(3) connectDevice
 function(successCallback, errorCallback, appsecret, mac)
 
 CallBack：
 
 {"msg":" connected ","address":"8CDE52143F1E","name":"BG5"}
-#(4) getIDPS
+####(4) getIDPS
 function(successCallback, errorCallback, appsecret, mac)
 
 CallBack：
 
 {"msg":" IDPS","HardwareVersion" : "1.0.0", "name" : "BG5", "address" : "8CDE5208B9ED",  "FirmwareVersion" : "3.0.0" }
-#(5) setUnit
+####(5) setUnit
 function(successCallback, errorCallback, appsecret, mac, type)
 
 CallBack：
 
 {"msg":" setUnit","address":"8CDE52143F1E"}
-#(6) setBottleId
+####(6) setBottleId
 function(successCallback, errorCallback, appsecret, mac, bottleId)
 
 CallBack：
 
 {"msg":" setBottleId","address":"8CDE52143F1E"}
-#(7) getBottleId
+####(7) getBottleId
 function(successCallback, errorCallback, appsecret, mac, bottleId)
 
 CallBack：
 
 {"msg":" bottleID","address":"8CDE52143F1E", "bottleID" : 4134}
-#(8) setBottleMessage
+####(8) setBottleMessage
 function(successCallback, errorCallback, appsecret, mac, qr, leftNum, time)
 
 CallBack：
@@ -72,19 +72,19 @@ CallBack：
 //  BGOpenMode = 2    BGOpenMode_Hand
 
 {"msg":"setBottleMessage","address":"8CDE52143F1E","BGOpenMode":1}
-#(9) getBottleMessage
+####(9) getBottleMessage
 function(successCallback, errorCallback, appsecret, mac)
 
 CallBack：
 
 {"msg":" code","address":"8CDE52143F1E", "bottleID" : 4134, "leftnum" :1, "expiretime" : 02 30 2014}
-#(10) getBattery
+####(10) getBattery
 function(successCallback, errorCallback, appsecret, mac)
 
 CallBack：
 
 {"msg":" battery","address":"8CDE52143F1E", "battery" : 10}
-#(11) getOfflineData
+####(11) getOfflineData
 function(successCallback, errorCallback, appsecret, mac)
 
 CallBack：
@@ -98,13 +98,13 @@ function(successCallback, errorCallback, appsecret, mac)
 CallBack：
 
 {"msg":" deleteOfflineData","address":"8CDE52143F1E"}
-#(13) holdLink
+####(13) holdLink
 function(successCallback, errorCallback, appsecret, mac)
 
 CallBack：
 
 {"msg":" holdLink","address":"8CDE52143F1E"}
-#(14) startMeasure
+####(14) startMeasure
 function(successCallback, errorCallback, appsecret, mac)
 
 CallBack：
@@ -114,7 +114,7 @@ CallBack：
 {"msg":" get blood","address":"8CDE52143F1E"}
 
 {"msg":" value","address":"8CDE52143F1E", " value " : 10}
-#(15) disConnectDevice
+####(15) disConnectDevice
 function(successCallback, errorCallback, appsecret, mac)
 
 ios Without this feature
@@ -127,7 +127,7 @@ function(successCallback, errorCallback, appsecret, mac)
 
 NO CallBack
 
-###BG5 error ID and related instructions
+##BG5 error ID and related instructions
 
 CallBack：
 
