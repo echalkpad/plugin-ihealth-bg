@@ -14,51 +14,118 @@ This is a cordova plugin for ihealth bg5.
     $ meteor remove cordova:com.ihealth.plugin.bgmanagercordova
     
 
-##### BgManagerCordova.startDiscovery("", success, failure);
-> Start bluetooth scanning; scanning will stop after 10 secs  
-> 启动普通蓝牙扫面，10秒后自动结束扫面。
 
-##### BgManagerCordova.stopDiscovery("", success, failure);
-> Stop bluetooth scanning
+###BG
 
-> 停止普通蓝牙扫面。
+#(1)startDiscovery
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" discovery doing","address":"8CDE52143F1E","name":"BG5"}
+#(2) stopDiscovery
+function(successCallback, errorCallback, appsecret, mac)
+ios Without this feature
+CallBack：
+{"msg":" discovery done "}
+#(3) connectDevice
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" connected ","address":"8CDE52143F1E","name":"BG5"}
+#(4) getIDPS
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" IDPS","HardwareVersion" : "1.0.0", "name" : "BG5", "address" : "8CDE5208B9ED",  "FirmwareVersion" : "3.0.0" }
+#(5) setUnit
+function(successCallback, errorCallback, appsecret, mac, type)
+CallBack：
+{"msg":" setUnit","address":"8CDE52143F1E"}
+#(6) setBottleId
+function(successCallback, errorCallback, appsecret, mac, bottleId)
+CallBack：
+{"msg":" setBottleId","address":"8CDE52143F1E"}
+#(7) getBottleId
+function(successCallback, errorCallback, appsecret, mac, bottleId)
+CallBack：
+{"msg":" bottleID","address":"8CDE52143F1E", "bottleID" : 4134}
+#(8) setBottleMessage
+function(successCallback, errorCallback, appsecret, mac, qr, leftNum, time)
+CallBack：
+{"msg":" setBottleMessage","address":"8CDE52143F1E"}
+// BGOpenMode = 1   BGOpenMode_Strip,
+//  BGOpenMode = 2    BGOpenMode_Hand
+{"msg":"setBottleMessage","address":"8CDE52143F1E","BGOpenMode":1}
+#(9) getBottleMessage
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" code","address":"8CDE52143F1E", "bottleID" : 4134, "leftnum" :1, "expiretime" : 02 30 2014}
+#(10) getBattery
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" battery","address":"8CDE52143F1E", "battery" : 10}
+#(11) getOfflineData
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" historyDataCount","address":"8CDE52143F1E", "historyDataCount" : 10}
+{"msg":" historyData","address":"8CDE52143F1E", "history" : [{_"Result" :13,_"Date" : "2015,8,15,23,13"}] }
+#(12) deleteOfflineData
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" deleteOfflineData","address":"8CDE52143F1E"}
+#(13) holdLink
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" holdLink","address":"8CDE52143F1E"}
+#(14) startMeasure
+function(successCallback, errorCallback, appsecret, mac)
+CallBack：
+{"msg":" strip in","address":"8CDE52143F1E"}
+{"msg":" get blood","address":"8CDE52143F1E"}
 
-##### BgManagerCordova.startMeasure(mac, success, failure);
-> Begin Glucose measurement
+{"msg":" value","address":"8CDE52143F1E", " value " : 10}
+#(15) disConnectDevice
+function(successCallback, errorCallback, appsecret, mac)
+ios Without this feature
+CallBack：
+{"msg":" disconnect","address":"8CDE52143F1E","name":"BP5"}
+#(16) setDisconnectCallback
+function(successCallback, errorCallback, appsecret, mac)
+NO CallBack
 
-> 开始进行血糖测量
+###BG5 error ID and related instructions
+CallBack：
+{"msg":"error","errorID" : 1, "ProductType" : "BG", "ProductModel" : "BG5", "address" : "8CDE5208B9ED"}
+Error ID：                
+            
+                         
+0：Battery is low.
 
-##### BgManagerCordova.setUnit(mac, success, failure, 1);
-> Set glucose measurement unit
+1：Glucose test result is out of the measurement range.
 
-> 设置血糖单位
+2：Unknown interference detected, please repeat the test.
 
-##### BgManagerCordova.setBottleMessage(mac, success, failure);
-> Set strip bottle information in BG5
-> 设置设备BG5中试条瓶信息 
+3：Strip is used or unknown moisture detected, discard the test strip and repeat the test with a new strip.
 
-##### BgManagerCordova.getBottleMessage(mac, success, failure);
-> get strip bottle information from BG5
+4：Reading transmission error. Repeat the test with a new test strip. If the problem persists, contact iHealth customer service for assistance.
 
-> 获得设备BG5中试条瓶信息 
+5：The environmental temperature is beyond normal range, place the meter at room temperature for at least 30 minutes, then repeat the test.
 
-##### BgManagerCordova.setBottleId(mac, success, failure);
-> set strip bottle ID in BG5
-> 设置设备BG5中试条瓶ID 
+6：The environmental temperature is beyond normal range, place the meter at room temperature for at least 30 minutes, then repeat the test.
 
-##### BgManagerCordova.getBottleId(mac, success, failure);
-> get strip bottle ID from BG5
+7：Test strip coding error.
 
-> 获得设备BG5中试条瓶ID 
+8：Communication error, press“START” or rescan the code to repeat the test.
 
-##### BgManagerCordova.getOfflineData(mac, success, failure);
-> get BG5 offline data (measurements when BG5 was not connected to a phone)
+9：Strip removed in the middle of reading, repeat the test with a new strip.
 
-> 获得设备BG5中离线数据 
+10：Insert a new test strip and repeat the test.
 
-##### BgManagerCordova.deleteOfflineData(mac, success, failure);
-> delete BG5 offline data
+400：No Device
 
-> 删除设备BG5中离线数据  
+500：The instruction is still in execution  
+
+600：The input parameter errors 
+
+700: unauthorized
+
+800：Does not support
 
   
