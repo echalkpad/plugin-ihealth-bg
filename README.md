@@ -19,79 +19,118 @@ This is a cordova plugin for ihealth bg5.
 
 #(1)startDiscovery
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" discovery doing","address":"8CDE52143F1E","name":"BG5"}
 #(2) stopDiscovery
 function(successCallback, errorCallback, appsecret, mac)
+
 ios Without this feature
+
 CallBack：
+
 {"msg":" discovery done "}
 #(3) connectDevice
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" connected ","address":"8CDE52143F1E","name":"BG5"}
 #(4) getIDPS
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" IDPS","HardwareVersion" : "1.0.0", "name" : "BG5", "address" : "8CDE5208B9ED",  "FirmwareVersion" : "3.0.0" }
 #(5) setUnit
 function(successCallback, errorCallback, appsecret, mac, type)
+
 CallBack：
+
 {"msg":" setUnit","address":"8CDE52143F1E"}
 #(6) setBottleId
 function(successCallback, errorCallback, appsecret, mac, bottleId)
+
 CallBack：
+
 {"msg":" setBottleId","address":"8CDE52143F1E"}
 #(7) getBottleId
 function(successCallback, errorCallback, appsecret, mac, bottleId)
+
 CallBack：
+
 {"msg":" bottleID","address":"8CDE52143F1E", "bottleID" : 4134}
 #(8) setBottleMessage
 function(successCallback, errorCallback, appsecret, mac, qr, leftNum, time)
+
 CallBack：
+
 {"msg":" setBottleMessage","address":"8CDE52143F1E"}
+
 // BGOpenMode = 1   BGOpenMode_Strip,
 //  BGOpenMode = 2    BGOpenMode_Hand
+
 {"msg":"setBottleMessage","address":"8CDE52143F1E","BGOpenMode":1}
 #(9) getBottleMessage
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" code","address":"8CDE52143F1E", "bottleID" : 4134, "leftnum" :1, "expiretime" : 02 30 2014}
 #(10) getBattery
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" battery","address":"8CDE52143F1E", "battery" : 10}
 #(11) getOfflineData
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" historyDataCount","address":"8CDE52143F1E", "historyDataCount" : 10}
+
 {"msg":" historyData","address":"8CDE52143F1E", "history" : [{_"Result" :13,_"Date" : "2015,8,15,23,13"}] }
 #(12) deleteOfflineData
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" deleteOfflineData","address":"8CDE52143F1E"}
 #(13) holdLink
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" holdLink","address":"8CDE52143F1E"}
 #(14) startMeasure
 function(successCallback, errorCallback, appsecret, mac)
+
 CallBack：
+
 {"msg":" strip in","address":"8CDE52143F1E"}
+
 {"msg":" get blood","address":"8CDE52143F1E"}
 
 {"msg":" value","address":"8CDE52143F1E", " value " : 10}
 #(15) disConnectDevice
 function(successCallback, errorCallback, appsecret, mac)
+
 ios Without this feature
+
 CallBack：
+
 {"msg":" disconnect","address":"8CDE52143F1E","name":"BP5"}
 #(16) setDisconnectCallback
 function(successCallback, errorCallback, appsecret, mac)
+
 NO CallBack
 
 ###BG5 error ID and related instructions
+
 CallBack：
+
 {"msg":"error","errorID" : 1, "ProductType" : "BG", "ProductModel" : "BG5", "address" : "8CDE5208B9ED"}
 Error ID：                
             
