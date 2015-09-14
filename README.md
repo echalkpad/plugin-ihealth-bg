@@ -6,7 +6,7 @@ This is a cordova plugin for ihealth bg5.
 
 ### Add the plugin
 
-    $ meteor add cordova:com.ihealth.plugin.bgmanagercordova@https://github.com/iHealthLab/plugin-ihealth-bg/tarball/485ecc5d5fd9165a93bf1b45ddcee4faa18e48af
+    $ meteor add cordova:com.ihealth.plugin.bgmanagercordova@https://github.com/iHealthLab/plugin-ihealth-bg/tarball/e4a92ef777a092fb4a8890c5f8441be28ea2f024
 
 
 ### Remove the plugin
